@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_top_bg"
             android:padding="10dp"
-            android:hint="ID"
+            android:hint="Nombre(s)"
             android:textColorHint="#cccccc"
             android:textSize="22sp"
             android:drawableLeft="@drawable/usersmall"/>
@@ -36,11 +36,32 @@
             android:background="@drawable/edittext_bottom_bg"
             android:layout_marginTop="-2dp"
             android:padding="10dp"
-            android:hint="Nombre"
+            android:hint="Apellidos"
             android:textColorHint="#cccccc"
             android:textSize="22sp"
             android:password="true"
             android:drawableLeft="@drawable/usersmall"/>
+
+        <EditText
+            android:id="@+id/fechaNacimientoET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_bottom_bg"
+            android:layout_marginTop="-2dp"
+            android:padding="10dp"
+            android:hint="Fecha de Nacimiento"
+            android:textColorHint="#cccccc"
+            android:textSize="22sp"
+            android:password="true"
+            android:drawableLeft="@drawable/usersmall"
+            android:inputType="date" />
+
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner" />
+
         <Button
             android:id="@+id/registrarseBT"
             android:layout_width="match_parent"

@@ -4,14 +4,24 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 
 public class SignUpActivity extends ActionBarActivity {
+
+    Spinner sexosSP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        sexosSP = (Spinner) findViewById(R.id.sexosSP);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.sexos, android.R.layout.simple_spinner_item);
+        sexosSP.setAdapter(adapter);
     }
 
 
