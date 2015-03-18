@@ -28,5 +28,6 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_ingresar">IngresarActivity</string>
     <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="title_activity_home">HomeActivity</string>
 
 </resources>
