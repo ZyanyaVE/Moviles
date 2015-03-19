@@ -19,9 +19,10 @@ public class SignUpActivity extends ActionBarActivity {
 
         sexosSP = (Spinner) findViewById(R.id.sexosSP);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.sexos, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.sexos, R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         sexosSP.setAdapter(adapter);
+
     }
 
 
