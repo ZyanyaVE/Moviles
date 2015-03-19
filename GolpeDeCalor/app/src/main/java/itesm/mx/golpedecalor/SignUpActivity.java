@@ -13,8 +13,9 @@ import android.widget.Spinner;
 
 public class SignUpActivity extends ActionBarActivity {
 
+        // Declaracion de variables
         Spinner sexosSP;
-        EditText nombreET, apellidosET, fechaNacimientoET;
+        EditText nombreET, apellidosET;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -24,19 +25,21 @@ public class SignUpActivity extends ActionBarActivity {
             sexosSP = (Spinner) findViewById(R.id.sexosSP);
             nombreET = (EditText) findViewById(R.id.nombreET);
             apellidosET = (EditText) findViewById(R.id.apellidosET);
-            fechaNacimientoET = (EditText) findViewById(R.id.fechaNacimientoET);
+            //fechaNacimientoET = (EditText) findViewById(R.id.fechaNacimientoET);
 
+            // Adaptador utilizado para el arreglo de sexos
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.sexos, R.layout.spinner_item);
             adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
             sexosSP.setAdapter(adapter);
 
         }
 
+        // Cambio de Activity para terminar registro e iniciar Home Activity
         public void onClickRegistrarse(View v){
             Intent registrarseIntent = new Intent (SignUpActivity.this, HomeActivity.class);
             registrarseIntent.putExtra("nombre", nombreET.getText().toString());
             registrarseIntent.putExtra("apellidos", apellidosET.getText().toString());
-            registrarseIntent.putExtra("fecha", fechaNacimientoET.getText().toString());
+            //registrarseIntent.putExtra("fecha", fechaNacimientoET.getText().toString());
 
             startActivity(registrarseIntent);
 

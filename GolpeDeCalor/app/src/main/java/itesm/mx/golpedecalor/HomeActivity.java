@@ -12,7 +12,7 @@ import org.w3c.dom.Text;
 public class HomeActivity extends ActionBarActivity {
 
     // Declaración de Variables
-    TextView nombreTV, apellidosTV, fechaNacimientoTV;
+    TextView nombreTV, apellidosTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +21,14 @@ public class HomeActivity extends ActionBarActivity {
 
         nombreTV = (TextView) findViewById(R.id.nombreTV);
         apellidosTV = (TextView) findViewById(R.id.apellidosTV);
-        fechaNacimientoTV = (TextView) findViewById(R.id.fechaNacimientoTV);
 
         Bundle extras = getIntent().getExtras();
-        nombreTV.setText(extras.getString("nombre"));
-        apellidosTV.setText(extras.getString("apellidos"));
-        fechaNacimientoTV.setText(extras.getString("fecha"));
+        Usuario user = new Usuario(extras.getString("nombre"), extras.getString("apellidos"),
+                extras.getString("fecha"));
+
+        nombreTV.setText(user.getNombre());
+        apellidosTV.setText(user.getApellidos());
+        //fechaNacimientoTV.setText(user.getFechaNacimiento());
     }
 
 
