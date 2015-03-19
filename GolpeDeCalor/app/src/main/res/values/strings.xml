@@ -7,6 +7,8 @@
     <string name="sign_in">Ingresar</string>
     <string name="sign_up">Registrarse</string>
     <string name ="noid">¿No cuentas con un id?</string>
+    <string name = "sexo">Sexo</string>
+    <string name = "fecha_nacimiento">Nacimiento (dd/mm/aa)</string>
 
     <string-array name="sexos">
         <item>Masculino</item>

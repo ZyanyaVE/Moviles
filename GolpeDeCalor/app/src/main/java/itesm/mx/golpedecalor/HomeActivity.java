@@ -4,14 +4,29 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 
 public class HomeActivity extends ActionBarActivity {
+
+    // Declaración de Variables
+    TextView nombreTV, apellidosTV, fechaNacimientoTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        nombreTV = (TextView) findViewById(R.id.nombreTV);
+        apellidosTV = (TextView) findViewById(R.id.apellidosTV);
+        fechaNacimientoTV = (TextView) findViewById(R.id.fechaNacimientoTV);
+
+        Bundle extras = getIntent().getExtras();
+        nombreTV.setText(extras.getString("nombre"));
+        apellidosTV.setText(extras.getString("apellidos"));
+        fechaNacimientoTV.setText(extras.getString("fecha"));
     }
 
 
