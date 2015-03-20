@@ -12,23 +12,24 @@ import org.w3c.dom.Text;
 public class HomeActivity extends ActionBarActivity {
 
     // Declaración de Variables
-    TextView nombreTV, apellidosTV;
+    TextView nombreTV;
+    String saludo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
+        // Referencias a objetos de interface
         nombreTV = (TextView) findViewById(R.id.nombreTV);
-        apellidosTV = (TextView) findViewById(R.id.apellidosTV);
+        //apellidosTV = (TextView) findViewById(R.id.apellidosTV);
 
         Bundle extras = getIntent().getExtras();
-        Usuario user = new Usuario(extras.getString("nombre"), extras.getString("apellidos"),
-                extras.getString("fecha"));
+//        Usuario user = new Usuario(extras.getString("nombre"), extras.getString("apellidos"),
+//                extras.getString("fecha"));
 
-        nombreTV.setText(user.getNombre());
-        apellidosTV.setText(user.getApellidos());
-        //fechaNacimientoTV.setText(user.getFechaNacimiento());
+        nombreTV.setText("Hola, " + extras.getString("nombre"));
     }
 
 

@@ -25,7 +25,7 @@ public class SignUpActivity extends ActionBarActivity {
             sexosSP = (Spinner) findViewById(R.id.sexosSP);
             nombreET = (EditText) findViewById(R.id.nombreET);
             apellidosET = (EditText) findViewById(R.id.apellidosET);
-            //fechaNacimientoET = (EditText) findViewById(R.id.fechaNacimientoET);
+
 
             // Adaptador utilizado para el arreglo de sexos
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.sexos, R.layout.spinner_item);
@@ -38,8 +38,6 @@ public class SignUpActivity extends ActionBarActivity {
         public void onClickRegistrarse(View v){
             Intent registrarseIntent = new Intent (SignUpActivity.this, HomeActivity.class);
             registrarseIntent.putExtra("nombre", nombreET.getText().toString());
-            registrarseIntent.putExtra("apellidos", apellidosET.getText().toString());
-            //registrarseIntent.putExtra("fecha", fechaNacimientoET.getText().toString());
 
             startActivity(registrarseIntent);
 

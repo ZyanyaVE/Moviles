@@ -129,25 +129,39 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/sexo"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
+            android:padding="6dp"
             android:textColor="#6b6767"
             android:textSize="18sp"/>
 
-        <Spinner
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/sexosSP"
-            android:layout_marginBottom="15dp" />
+            android:background="@drawable/edittext_bottom_bg"
+            android:paddingLeft ="10dp"
+            android:paddingRight="5dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            >
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/sexosSP"
+
+                style=""
+             />
+        </LinearLayout>
 
         <Button
             android:id="@+id/registrarseBT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:layout_margin="4dp"
+            android:layout_marginTop="25dp"
             android:text="@string/sign_up"
             style="@style/DefaultButtonText"
             android:background="@drawable/button_default_bg"
