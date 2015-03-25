@@ -7,26 +7,62 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
 
     // Declaracion de Variables
+    DataBaseOperations dbo;
 
+    EditText idET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        idET = (EditText) findViewById(R.id.IdET);
+
+        dbo = new DataBaseOperations(getApplicationContext());
+
+    }
+
+    @Override
+    protected void onResume()   {
+        try {
+            dbo.open();
+        }
+        catch (Exception e){
+            System.out.println("lala");
+        }
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause(){
+        dbo.close();
+        super.onPause();
     }
 
     public void onClickIngresar(View v){
+        Integer id = Integer.parseInt(idET.getText().toString());
+        Usuario user = dbo.findAccount(id);
+        if (user != null){
+            Intent homeIntent = new Intent (MainActivity.this, HomeActivity.class);
+            homeIntent.putExtra("Usuario", user);
+            startActivity(homeIntent);
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "El ID que ingresaste no existe", Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 
     public void onClickRegistrarse(View v){
         Intent registrarseIntent = new Intent(MainActivity.this, SignUpActivity.class);
-
         startActivity(registrarseIntent);
     }
 

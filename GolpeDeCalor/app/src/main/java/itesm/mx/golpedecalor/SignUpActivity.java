@@ -1,6 +1,7 @@
 package itesm.mx.golpedecalor;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,13 +10,20 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 
 public class SignUpActivity extends ActionBarActivity {
 
         // Declaracion de variables
         Spinner sexosSP;
-        EditText nombreET, apellidosET;
+        EditText nombreET, apellidosET, diaET, mesET, añoET;
+
+        DataBaseOperations dbo;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +33,9 @@ public class SignUpActivity extends ActionBarActivity {
             sexosSP = (Spinner) findViewById(R.id.sexosSP);
             nombreET = (EditText) findViewById(R.id.nombreET);
             apellidosET = (EditText) findViewById(R.id.apellidosET);
+            diaET = (EditText) findViewById(R.id.diaET);
+            mesET = (EditText) findViewById(R.id.mesET);
+            añoET = (EditText) findViewById(R.id.anoET);
 
 
             // Adaptador utilizado para el arreglo de sexos
@@ -32,14 +43,81 @@ public class SignUpActivity extends ActionBarActivity {
             adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
             sexosSP.setAdapter(adapter);
 
+            dbo = new DataBaseOperations(getApplicationContext());
+
         }
+
+
+        @Override
+        protected void onResume()   {
+            try {
+                dbo.open();
+            }
+            catch (Exception e){
+                System.out.println("lala");
+            }
+            super.onResume();
+        }
+
+    @Override
+    protected void onPause(){
+        dbo.close();
+        super.onPause();
+    }
 
         // Cambio de Activity para terminar registro e iniciar Home Activity
         public void onClickRegistrarse(View v){
-            Intent registrarseIntent = new Intent (SignUpActivity.this, HomeActivity.class);
-            registrarseIntent.putExtra("nombre", nombreET.getText().toString());
+            String primerNombre = nombreET.getText().toString();
+            String apellidos = apellidosET.getText().toString();
+            String dia = diaET.getText().toString();
+            String mes = mesET.getText().toString();
+            String año = añoET.getText().toString();
+            String sexo = sexosSP.getSelectedItem().toString();
 
-            startActivity(registrarseIntent);
+            //Se checa que los campos no estén vacios
+            if (!primerNombre.equals("") && !apellidos.equals("") && !dia.equals("") && !mes.equals("") && !año.equals("")){
+                Integer diaInt = Integer.parseInt(dia);
+                Integer mesInt = Integer.parseInt(mes);
+                Integer añoInt = Integer.parseInt(año);
+
+                //Se checa que el mes y el año esten en un rango aceptable
+                if (mesInt > 0 && mesInt < 13 && añoInt > 1915 && añoInt < 2015){
+                    Calendar cal = new GregorianCalendar(añoInt, mesInt, 1);
+
+                    //Se checa si el dia cae dentro del mes correcto
+                    if (diaInt <= cal.getActualMaximum(Calendar.DAY_OF_MONTH)){
+
+                        Usuario user = new Usuario(0, primerNombre, apellidos, diaInt, mesInt, añoInt, sexo);
+                        long id = dbo.registerUser(user);
+                        user.setId(id);
+                        Toast.makeText(getApplicationContext(), "Usuario creado correctamente", Toast.LENGTH_LONG).show();
+
+                        Intent mostrarIDIntent = new Intent (SignUpActivity.this, ShowIDActivity.class);
+                        mostrarIDIntent.putExtra("Usuario", user);
+
+                        startActivity(mostrarIDIntent);
+
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(), "Fecha Inválida", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Fecha Inválida", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Faltó llenar algún campo", Toast.LENGTH_SHORT).show();
+            }
+
+
+
+
+
+
+
 
         }
 

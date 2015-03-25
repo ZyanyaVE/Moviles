@@ -28,6 +28,10 @@
             android:name=".HomeActivity"
             android:label="@string/title_activity_home" >
         </activity>
+        <activity
+            android:name=".ShowIDActivity"
+            android:label="@string/title_activity_show_id" >
+        </activity>
     </application>
 
 </manifest>
