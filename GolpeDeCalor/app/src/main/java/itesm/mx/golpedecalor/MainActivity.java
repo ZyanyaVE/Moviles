@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 
 
 public class MainActivity extends ActionBarActivity {
@@ -50,7 +50,7 @@ public class MainActivity extends ActionBarActivity {
         Integer id = Integer.parseInt(idET.getText().toString());
         Usuario user = dbo.findAccount(id);
         if (user != null){
-            Intent homeIntent = new Intent (MainActivity.this, HomeActivity.class);
+            Intent homeIntent = new Intent (MainActivity.this, SelectGroupActivity.class);
             homeIntent.putExtra("Usuario", user);
             startActivity(homeIntent);
         }

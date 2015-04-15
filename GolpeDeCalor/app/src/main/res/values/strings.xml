@@ -15,6 +15,16 @@
     <string name="tunumeroid">Tu número de identificación es el siguiente: </string>
     <string name="recuerdaid">Porfavor anótalo o memorízalo ya que con eso ingresarás al sistema</string>
     <string name="cotinuarbt">Continuar</string>
+    <string name="favrodeselecc">Favor de seleccionar un grupo:</string>
+    <string name="nuevogrupo">¿Nuevo grupo?</string>
+    <string name="creargrupo">Crear grupo</string>
+    <string name="nombregpo">Nombre del grupo</string>
+    <string name="agregarpersona">Agregar persona</string>
+    <string name="empezarmonitoreo">Empezar monitoreo</string>
+    <string name="usuarioexistente">Usuario existente:</string>
+    <string name="usuarionuevo">¿Usuario nuevo?</string>
+    <string name="agregarusuario">Agregar integrante</string>
+    <string name="integrantes">Integrantes:</string>
 
     <string-array name="sexos">
         <item>Masculino</item>
@@ -44,5 +54,7 @@
     <string name="title_activity_sign_in">SignInActivity</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_show_id">ShowIDActivity</string>
+    <string name="title_activity_create_view_group">CreateViewGroupActivity</string>
+    <string name="title_activity_add_user">AddUserActivity</string>
 
 </resources>

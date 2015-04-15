@@ -8,8 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import org.apache.http.client.methods.HttpOptions;
-
 
 public class ShowIDActivity extends ActionBarActivity {
 
@@ -55,7 +53,7 @@ public class ShowIDActivity extends ActionBarActivity {
     }
 
     public void onClickContinuar(View v){
-        Intent homeIntent = new Intent (ShowIDActivity.this, HomeActivity.class);
+        Intent homeIntent = new Intent (ShowIDActivity.this, SelectGroupActivity.class);
         homeIntent.putExtra("Usuario", usuarioPrincipal);
         startActivity(homeIntent);
 

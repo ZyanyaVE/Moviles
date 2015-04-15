@@ -25,12 +25,20 @@
             android:label="@string/title_activity_ingresar" >
         </activity>
         <activity
-            android:name=".HomeActivity"
+            android:name=".SelectGroupActivity"
             android:label="@string/title_activity_home" >
         </activity>
         <activity
             android:name=".ShowIDActivity"
             android:label="@string/title_activity_show_id" >
+        </activity>
+        <activity
+            android:name=".CreateViewGroupActivity"
+            android:label="@string/title_activity_create_view_group" >
+        </activity>
+        <activity
+            android:name=".AddUserActivity"
+            android:label="@string/title_activity_add_user" >
         </activity>
     </application>
 

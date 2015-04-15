@@ -23,6 +23,8 @@ public class SignUpActivity extends ActionBarActivity {
         Spinner sexosSP;
         EditText nombreET, apellidosET, diaET, mesET, añoET;
 
+        boolean registroInicial;
+
         DataBaseOperations dbo;
 
         @Override
@@ -37,6 +39,7 @@ public class SignUpActivity extends ActionBarActivity {
             mesET = (EditText) findViewById(R.id.mesET);
             añoET = (EditText) findViewById(R.id.anoET);
 
+            registroInicial = getIntent().getExtras().getBoolean("registroinicial");
 
             // Adaptador utilizado para el arreglo de sexos
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.sexos, R.layout.spinner_item);
@@ -92,10 +95,17 @@ public class SignUpActivity extends ActionBarActivity {
                         user.setId(id);
                         Toast.makeText(getApplicationContext(), "Usuario creado correctamente", Toast.LENGTH_LONG).show();
 
-                        Intent mostrarIDIntent = new Intent (SignUpActivity.this, ShowIDActivity.class);
-                        mostrarIDIntent.putExtra("Usuario", user);
-
-                        startActivity(mostrarIDIntent);
+                        if (registroInicial) {
+                            Intent mostrarIDIntent = new Intent(SignUpActivity.this, ShowIDActivity.class);
+                            mostrarIDIntent.putExtra("Usuario", user);
+                            startActivity(mostrarIDIntent);
+                        }
+                        else{
+                            Intent intent = new Intent();
+                            intent.putExtra("id", id);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        }
 
                     }
                     else{
