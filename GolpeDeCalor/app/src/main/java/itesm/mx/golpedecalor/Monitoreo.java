@@ -39,14 +39,20 @@ public class Monitoreo {
             @Override
             public void run() {
                 int i = 0;
-                for (Usuario u : grupo.getIntegrantes()){
+                for (final Usuario u : grupo.getIntegrantes()){
                     final float temp = getTemp(u);
                     final int rc = getRitmoCardiaco(u);
                     final int ind = i;
-                    System.out.println("Entra" + i);
                     handler.post(new Runnable() {
                         public void run() {
                             interfaz.updateValues(temp, rc, 0, ind);
+
+                            if (temp > 39){
+                                interfaz.newNotification("Temperatura alta", u.getNombre(), u.getNombre()+ "Cuidado temp alta");
+                            }
+
+
+
                         }
 
                     });
