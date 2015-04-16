@@ -27,6 +27,7 @@ public class CreateViewGroupActivity extends ActionBarActivity {
     TextView groupNameTV;
     ListView groupMembersLV;
     ArrayList<String> nombres;
+    Usuario usuarioPrincipal;
 
     ArrayAdapter<String> adapter;
 
@@ -54,6 +55,8 @@ public class CreateViewGroupActivity extends ActionBarActivity {
 
         nombres = new ArrayList<>();
 
+        usuarioPrincipal = getIntent().getParcelableExtra("Usuario");
+
         existente = getIntent().getBooleanExtra("existente?", false);
 
         try {
@@ -74,8 +77,17 @@ public class CreateViewGroupActivity extends ActionBarActivity {
                 nombres.add(u.getNombre() + " " + u.getApellidos());
             }
 
+            if (!dbo.userInGroup(grupo, usuarioPrincipal)){
+                dbo.addPersonToGroup(grupo, usuarioPrincipal);
+                miembrosGpo.add(usuarioPrincipal);
+                nombres.add(usuarioPrincipal.getNombre() + " " + usuarioPrincipal.getApellidos());
+            }
+
+
         } else {
             miembrosGpo = new ArrayList<Usuario>();
+            miembrosGpo.add(usuarioPrincipal);
+            nombres.add(usuarioPrincipal.getNombre() + " " + usuarioPrincipal.getApellidos());
         }
 
         adapter = new ArrayAdapter<String>(this, R.layout.activity_row, R.id.rowTV, nombres);
@@ -130,10 +142,12 @@ public class CreateViewGroupActivity extends ActionBarActivity {
         else{
             if (!groupNameET.getText().toString().equals("")){
                 if (!miembrosGpo.isEmpty()){
-                    Grupo gpo = new Grupo(0, groupNameET.getText().toString());
-                    long idnumber = dbo.addGroup(gpo, miembrosGpo);
-                    gpo.setId(idnumber);
+                    grupo = new Grupo(0, groupNameET.getText().toString());
+                    long idnumber = dbo.addGroup(grupo, miembrosGpo);
+                    grupo.setId(idnumber);
                     Toast.makeText(getApplicationContext(), "Grupo agregado correctamente", Toast.LENGTH_SHORT).show();
+
+
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Favor de agregar al menos una persona", Toast.LENGTH_SHORT).show();
@@ -143,6 +157,10 @@ public class CreateViewGroupActivity extends ActionBarActivity {
                 Toast.makeText(getApplicationContext(), "Favor de llenar el nombre del grupo", Toast.LENGTH_SHORT).show();
             }
         }
+
+        Intent intent = new Intent(CreateViewGroupActivity.this, MonitoringActivity.class);
+        intent.putExtra("id", grupo.getId());
+        startActivity(intent);
 
     }
 

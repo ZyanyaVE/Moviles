@@ -43,6 +43,7 @@ public class SelectGroupActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(SelectGroupActivity.this, CreateViewGroupActivity.class);
+                intent.putExtra("Usuario", usuarioPrincipal);
                 intent.putExtra("groupid", grupos.get(position).getId());
                 intent.putExtra("existente?", true);
                 startActivity(intent);
@@ -113,6 +114,7 @@ public class SelectGroupActivity extends ActionBarActivity {
     public void onClickNuevoGrupo(View v){
         Intent intent = new Intent(SelectGroupActivity.this, CreateViewGroupActivity.class);
         intent.putExtra("existente?", false);
+        intent.putExtra("Usuario", usuarioPrincipal);
         startActivity(intent);
     }
 }

@@ -25,6 +25,12 @@
     <string name="usuarionuevo">¿Usuario nuevo?</string>
     <string name="agregarusuario">Agregar integrante</string>
     <string name="integrantes">Integrantes:</string>
+    <string name="monitoreoenprog">Monitoreo en progreso</string>
+    <string name="monitoreandoa">Monitoreando a:</string>
+    <string name="nombre">Nombre</string>
+    <string name="ritmocardiacio">R.C.</string>
+    <string name="temperatura">Temp.</string>
+    <string name="radiacion">Rad.</string>
 
     <string-array name="sexos">
         <item>Masculino</item>
@@ -56,5 +62,6 @@
     <string name="title_activity_show_id">ShowIDActivity</string>
     <string name="title_activity_create_view_group">CreateViewGroupActivity</string>
     <string name="title_activity_add_user">AddUserActivity</string>
+    <string name="title_activity_monitoring">MonitoringActivity</string>
 
 </resources>

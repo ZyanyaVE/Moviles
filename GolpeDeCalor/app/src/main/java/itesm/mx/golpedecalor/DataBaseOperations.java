@@ -156,4 +156,18 @@ public class DataBaseOperations {
 
     }
 
+    public boolean userInGroup(Grupo gpo, Usuario user){
+        boolean encontrado = false;
+        ArrayList<Usuario> usuarios = getAllUsersFromGroup(gpo);
+        for (Usuario u : usuarios){
+            if (u.getId() == user.getId()){
+                encontrado = true;
+                break;
+            }
+        }
+
+        return encontrado;
+
+    }
+
 }
