@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -79,6 +80,11 @@ public class SelectGroupActivity extends ActionBarActivity {
 
 
 
+    }
+
+    @Override
+    public void onBackPressed(){
+        Toast.makeText(getApplicationContext(), "No se puede hacia atrás", Toast.LENGTH_SHORT);
     }
 
     @Override

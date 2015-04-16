@@ -43,6 +43,7 @@ public class Monitoreo {
                     final float temp = getTemp(u);
                     final int rc = getRitmoCardiaco(u);
                     final int ind = i;
+                    System.out.println("Entra" + i);
                     handler.post(new Runnable() {
                         public void run() {
                             interfaz.updateValues(temp, rc, 0, ind);

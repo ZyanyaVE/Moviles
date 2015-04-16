@@ -42,11 +42,6 @@ public class MonitoringActivity extends ActionBarActivity {
         temp = new ArrayList<TextView>();
         rad = new ArrayList<TextView>();
 
-
-    }
-
-    @Override
-    protected void onResume(){
         try {
             dbo.open();
         }
@@ -90,6 +85,17 @@ public class MonitoringActivity extends ActionBarActivity {
 
         }
         monitoreoHelper.empezarMonitoreo();
+
+    }
+
+    @Override
+    protected void onResume(){
+        try {
+            dbo.open();
+        }
+        catch (SQLException ex){
+            Log.e("", ex.toString());
+        }
         super.onResume();
     }
 
@@ -101,8 +107,10 @@ public class MonitoringActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed(){
+        //agregar un dialog box para preguntar si esta seguro que quiere
         monitoreoHelper.terminarMonitoreo();
-        Toast.makeText(getApplicationContext(), "Monitoreo terminado", Toast.LENGTH_SHORT);
+        Toast.makeText(getApplicationContext(), "Monitoreo terminado", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     public void updateValues(float tempa, int rcard, int radia, int ind){
