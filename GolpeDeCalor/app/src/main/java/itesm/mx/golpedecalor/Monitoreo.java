@@ -57,4 +57,8 @@ public class Monitoreo {
         timer.schedule(monitorear, 01, 1000*2);
     }
 
+    public void terminarMonitoreo(){
+        timer.cancel();
+    }
+
 }

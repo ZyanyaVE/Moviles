@@ -45,10 +45,6 @@ public class MonitoringActivity extends ActionBarActivity {
 
     }
 
-    public void toast(){
-        Toast.makeText(getApplicationContext(), "LALALA", Toast.LENGTH_SHORT).show();
-    }
-
     @Override
     protected void onResume(){
         try {
@@ -101,6 +97,12 @@ public class MonitoringActivity extends ActionBarActivity {
     protected void onPause(){
         dbo.close();
         super.onPause();
+    }
+
+    @Override
+    public void onBackPressed(){
+        monitoreoHelper.terminarMonitoreo();
+        Toast.makeText(getApplicationContext(), "Monitoreo terminado", Toast.LENGTH_SHORT);
     }
 
     public void updateValues(float tempa, int rcard, int radia, int ind){

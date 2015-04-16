@@ -52,6 +52,7 @@ public class MainActivity extends ActionBarActivity {
         if (user != null){
             Intent homeIntent = new Intent (MainActivity.this, SelectGroupActivity.class);
             homeIntent.putExtra("Usuario", user);
+
             startActivity(homeIntent);
         }
         else{
@@ -63,6 +64,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void onClickRegistrarse(View v){
         Intent registrarseIntent = new Intent(MainActivity.this, SignUpActivity.class);
+        registrarseIntent.putExtra("registroinicial", true);
         startActivity(registrarseIntent);
     }
 
