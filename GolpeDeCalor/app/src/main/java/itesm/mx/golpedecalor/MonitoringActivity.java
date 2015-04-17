@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 public class MonitoringActivity extends ActionBarActivity {
 
+    // Declaración de Variables
     Grupo grupo;
     long groupId;
     DataBaseOperations dbo;
@@ -36,8 +37,10 @@ public class MonitoringActivity extends ActionBarActivity {
         dbo = new DataBaseOperations(getApplicationContext());
         groupId = getIntent().getLongExtra("id", 0);
 
+        // Referencias a objetos de interfacae
         tablaTL = (TableLayout) findViewById(R.id.tablaTL);
 
+        // Inicialización
         rc = new ArrayList<TextView>();
         temp = new ArrayList<TextView>();
         rad = new ArrayList<TextView>();
@@ -78,11 +81,6 @@ public class MonitoringActivity extends ActionBarActivity {
             tr.addView(tempAux);
             tr.addView(radAux);
             tablaTL.addView(tr);
-
-
-
-
-
         }
         monitoreoHelper.empezarMonitoreo();
 
@@ -105,6 +103,7 @@ public class MonitoringActivity extends ActionBarActivity {
         super.onPause();
     }
 
+    // Se cancela el monitoreo u la recepción de datos al presionar back
     @Override
     public void onBackPressed(){
         //agregar un dialog box para preguntar si esta seguro que quiere
@@ -113,11 +112,11 @@ public class MonitoringActivity extends ActionBarActivity {
         finish();
     }
 
+    //
     public void updateValues(float tempa, int rcard, int radia, int ind){
         temp.get(ind).setText(String.format("%.1f", tempa));
         rc.get(ind).setText(String.valueOf(rcard));
         rad.get(ind).setText(String.valueOf(radia));
-
     }
 
     @Override

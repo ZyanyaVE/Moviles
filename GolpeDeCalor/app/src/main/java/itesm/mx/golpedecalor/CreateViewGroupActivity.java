@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 public class CreateViewGroupActivity extends ActionBarActivity {
 
+    // Declaración de variables
     boolean existente;
 
     EditText groupNameET;
@@ -48,6 +49,7 @@ public class CreateViewGroupActivity extends ActionBarActivity {
 
         dbo = new DataBaseOperations(getApplicationContext());
 
+        // Referencias a objetos de interface
         groupNameET = (EditText) findViewById(R.id.groupNameET);
         groupNameTV = (TextView) findViewById(R.id.groupNameTV);
         groupMembersLV = (ListView) findViewById(R.id.groupMembersLV);
@@ -72,6 +74,7 @@ public class CreateViewGroupActivity extends ActionBarActivity {
             miembrosGpo = dbo.getAllUsersFromGroup(grupo);
             viewSwitcher.showNext();
             groupNameTV.setText(grupo.getNombre());
+
 
             for (Usuario u : miembrosGpo){
                 nombres.add(u.getNombre() + " " + u.getApellidos());
@@ -164,10 +167,10 @@ public class CreateViewGroupActivity extends ActionBarActivity {
 
     }
 
+    // Se ingresa a la activity de AddUserActivity
     public void onClickAgregarPersona(View v){
         Intent intent = new Intent(CreateViewGroupActivity.this, AddUserActivity.class);
         startActivityForResult(intent, PICK_CONTACT_REQUEST);
-
     }
 
     @Override
@@ -188,8 +191,7 @@ public class CreateViewGroupActivity extends ActionBarActivity {
                miembrosGpo.add(user);
                nombres.add(user.getNombre() + " " + user.getApellidos());
 
-
-                 adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
                 System.out.println("Entra!");
                 if (existente){
                     dbo.addPersonToGroup(grupo, user);

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 public class ShowIDActivity extends ActionBarActivity {
 
+    // Declaración de variables
     private TextView idTV;
     Usuario usuarioPrincipal;
 
@@ -20,13 +21,12 @@ public class ShowIDActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_id);
 
+        // Referencias a objetos de interface
         idTV = (TextView) findViewById(R.id.idTV);
 
         usuarioPrincipal = (Usuario) getIntent().getParcelableExtra("Usuario");
 
         idTV.setText(String.valueOf(usuarioPrincipal.getId()));
-
-
     }
 
 
@@ -52,6 +52,7 @@ public class ShowIDActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Continuar en HomeActivity
     public void onClickContinuar(View v){
         Intent homeIntent = new Intent (ShowIDActivity.this, SelectGroupActivity.class);
         homeIntent.putExtra("Usuario", usuarioPrincipal);

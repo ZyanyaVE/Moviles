@@ -48,7 +48,7 @@ public class Monitoreo {
                             interfaz.updateValues(temp, rc, 0, ind);
 
                             if (temp > 39){
-                                interfaz.newNotification("Temperatura alta", u.getNombre(), u.getNombre()+ "Cuidado temp alta");
+                                //interfaz.newNotification("Temperatura alta", u.getNombre(), u.getNombre()+ "Cuidado temp alta");
                             }
 
 

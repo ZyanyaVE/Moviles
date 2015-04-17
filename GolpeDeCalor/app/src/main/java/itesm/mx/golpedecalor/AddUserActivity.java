@@ -15,6 +15,7 @@ import java.sql.SQLException;
 
 public class AddUserActivity extends ActionBarActivity {
 
+    // Declaración de variables
     final static int PICK_CONTACT_REQUEST = 1995;
     EditText idET;
     DataBaseOperations dbo;
@@ -24,6 +25,7 @@ public class AddUserActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_user);
 
+        // Referencias a objetos de interface
         idET = (EditText) findViewById(R.id.idET);
         dbo = new DataBaseOperations(getApplicationContext());
 
@@ -68,8 +70,9 @@ public class AddUserActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Agregar usuario a un grupo
       public void onClickAgregarUsuario(View v){
-        if (!idET.getText().toString().equals("")){
+        if (!idET.getText().toString().equals("")){  // Verificación de variables
             Usuario user = dbo.findAccount(Integer.parseInt(idET.getText().toString()));
             if (user != null){
                 Intent intent = new Intent();
@@ -86,12 +89,14 @@ public class AddUserActivity extends ActionBarActivity {
         }
     }
 
+    // Si se quiere agregar un usuario no registrado al grupo
     public void onClickRegistrarUsuario(View v){
         Intent intent = new Intent(AddUserActivity.this, SignUpActivity.class);
         intent.putExtra("registroinicial", false);
         startActivityForResult(intent, PICK_CONTACT_REQUEST);
     }
 
+    // Respuesta al intent de CreateViewGroupActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to

@@ -32,6 +32,7 @@ public class SignUpActivity extends ActionBarActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_signup);
 
+            // Referencias a objetos de interface
             sexosSP = (Spinner) findViewById(R.id.sexosSP);
             nombreET = (EditText) findViewById(R.id.nombreET);
             apellidosET = (EditText) findViewById(R.id.apellidosET);
@@ -47,7 +48,6 @@ public class SignUpActivity extends ActionBarActivity {
             sexosSP.setAdapter(adapter);
 
             dbo = new DataBaseOperations(getApplicationContext());
-
         }
 
 
@@ -106,7 +106,6 @@ public class SignUpActivity extends ActionBarActivity {
                             setResult(RESULT_OK, intent);
                             finish();
                         }
-
                     }
                     else{
                         Toast.makeText(getApplicationContext(), "Fecha Inválida", Toast.LENGTH_SHORT).show();
@@ -121,14 +120,6 @@ public class SignUpActivity extends ActionBarActivity {
             else{
                 Toast.makeText(getApplicationContext(), "Faltó llenar algún campo", Toast.LENGTH_SHORT).show();
             }
-
-
-
-
-
-
-
-
         }
 
         @Override

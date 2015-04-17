@@ -40,6 +40,7 @@ public class SelectGroupActivity extends ActionBarActivity {
         usuarioPrincipal = (Usuario) getIntent().getParcelableExtra("Usuario");
         nombreTV.setText("Hola, " + usuarioPrincipal.getNombre());
 
+        // Si se presiona un grupo se va al intent de verGrupos
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -52,8 +53,6 @@ public class SelectGroupActivity extends ActionBarActivity {
         };
 
         miembrosLV.setOnItemClickListener(itemListener);
-
-
     }
 
     @Override
@@ -77,9 +76,6 @@ public class SelectGroupActivity extends ActionBarActivity {
         miembrosLV.setAdapter(adapter);
 
         super.onResume();
-
-
-
     }
 
     @Override
@@ -92,8 +88,6 @@ public class SelectGroupActivity extends ActionBarActivity {
         dbo.close();
         super.onPause();
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -117,6 +111,7 @@ public class SelectGroupActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Se crea un nuevo grupo y se inicia la creación de grupos
     public void onClickNuevoGrupo(View v){
         Intent intent = new Intent(SelectGroupActivity.this, CreateViewGroupActivity.class);
         intent.putExtra("existente?", false);

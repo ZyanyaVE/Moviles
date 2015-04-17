@@ -23,6 +23,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Referencias a objetos de interface
         idET = (EditText) findViewById(R.id.IdET);
 
         dbo = new DataBaseOperations(getApplicationContext());
@@ -46,6 +47,7 @@ public class MainActivity extends ActionBarActivity {
         super.onPause();
     }
 
+    // Se revisa la base de datos para saber si existe el usuario ingresado
     public void onClickIngresar(View v){
         Integer id = Integer.parseInt(idET.getText().toString());
         Usuario user = dbo.findAccount(id);
@@ -58,10 +60,9 @@ public class MainActivity extends ActionBarActivity {
         else{
             Toast.makeText(getApplicationContext(), "El ID que ingresaste no existe", Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
+    // Va a la activity de SignUpActivity
     public void onClickRegistrarse(View v){
         Intent registrarseIntent = new Intent(MainActivity.this, SignUpActivity.class);
         registrarseIntent.putExtra("registroinicial", true);
