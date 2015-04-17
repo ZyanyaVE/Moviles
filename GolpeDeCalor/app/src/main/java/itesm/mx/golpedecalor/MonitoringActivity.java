@@ -1,8 +1,10 @@
 package itesm.mx.golpedecalor;
 
+import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -10,11 +12,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -33,11 +37,16 @@ public class MonitoringActivity extends ActionBarActivity {
     private PendingIntent pendingIntent;
     NotificationManager notificationManager;
 
-    private int MY_NOTIFICATION_ID = 1;
-
     private ArrayList<TextView> rc;
     private ArrayList<TextView> temp;
     private ArrayList<TextView> rad;
+
+    private boolean alerta;
+
+    TextView nombreTV, causaTV, parametroTV;
+    ViewSwitcher switcherVS;
+
+    DialogInterface.OnClickListener dialogClickListener;
 
 
     @Override
@@ -45,11 +54,17 @@ public class MonitoringActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monitoring);
 
+        alerta = false;
+
         dbo = new DataBaseOperations(getApplicationContext());
         groupId = getIntent().getLongExtra("id", 0);
 
         // Referencias a objetos de interfacae
         tablaTL = (TableLayout) findViewById(R.id.tablaTL);
+        nombreTV = (TextView) findViewById(R.id.nombreTV);
+        causaTV = (TextView) findViewById(R.id.causaTV);
+        parametroTV = (TextView) findViewById(R.id.parametroTV);
+        switcherVS = (ViewSwitcher) findViewById(R.id.switcherVS);
 
         // Inicialización
         rc = new ArrayList<TextView>();
@@ -99,6 +114,23 @@ public class MonitoringActivity extends ActionBarActivity {
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         pendingIntent = PendingIntent.getActivity(getApplicationContext(),0,notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 
+        dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        switcherVS.showNext();
+                        alerta = false;
+                        notificationManager.cancelAll();
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                        break;
+                }
+            }
+        };
+
     }
 
     @Override
@@ -145,10 +177,26 @@ public class MonitoringActivity extends ActionBarActivity {
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(notifID, notificationBuilder.build());
 
+    }
 
+    public void alerta(String nombre, String causa, String parametro){
+        if (!alerta){
+            switcherVS.showNext();
+            alerta = true;
+        }
 
+        nombreTV.setText(nombre);
+        if (causa == "Temp"){
+            causaTV.setText("Se le presentó una temperatura muy elevada");
+            parametroTV.setText("Temperatura: " + parametro + "°C");
+        }
+        else if (causa == "RC"){
+            causaTV.setText("Se le presentó un ritmo cardiaco muy elevado");
+            parametroTV.setText("Ritmo cardiáco: " + parametro + " ppm");
+        }
+        else{
 
-
+        }
     }
 
     @Override
@@ -171,5 +219,18 @@ public class MonitoringActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onClickEnterado(View v){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("¿Se atendio al trabajador?").setPositiveButton("Si", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
+
+    }
+
+    public void onClickTerminarMonitoreo(View v){
+        monitoreoHelper.terminarMonitoreo();
+        Toast.makeText(getApplicationContext(), "Monitoreo terminado", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

@@ -5,72 +5,148 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="itesm.mx.golpedecalor.MonitoringActivity">
+    tools:context="itesm.mx.golpedecalor.MonitoringActivity"
+    android:weightSum="1">
 
-    <TextView
+    <ViewSwitcher
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/monitoreoenprog"
-        android:id="@+id/textView10"
-        android:textColor="#ff000000"
-        android:textSize="40dp"
-        android:layout_gravity="center_vertical"
-        android:gravity="center_horizontal" />
+        android:id="@+id/switcherVS" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/monitoreandoa"
-        android:id="@+id/textView11"
-        android:textColor="#ff000000"
-        android:textSize="25dp"
-        android:layout_marginTop="25dp" />
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:id="@+id/tablaTL">
-
-        <TableRow
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/nombre"
-                android:id="@+id/textView12"
-                android:layout_column="0"
+                android:text="@string/monitoreoenprog"
+                android:id="@+id/textView10"
                 android:textColor="#ff000000"
-                android:textSize="15dp" />
+                android:textSize="40dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_horizontal" />
 
             <TextView
-                android:layout_width="70dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ritmocardiacio"
-                android:id="@+id/textView13"
-                android:layout_column="1"
+                android:text="@string/monitoreandoa"
+                android:id="@+id/textView11"
                 android:textColor="#ff000000"
-                android:textSize="15dp" />
+                android:textSize="25dp"
+                android:layout_marginTop="25dp" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:id="@+id/tablaTL">
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nombre"
+                        android:id="@+id/textView12"
+                        android:layout_column="0"
+                        android:textColor="#ff000000"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ritmocardiacio"
+                        android:id="@+id/textView13"
+                        android:layout_column="1"
+                        android:textColor="#ff000000"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/temperatura"
+                        android:id="@+id/textView14"
+                        android:layout_column="2"
+                        android:textColor="#ff000000"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/radiacion"
+                        android:id="@+id/textView15"
+                        android:layout_column="3"
+                        android:textColor="#ff000000"
+                        android:textSize="15dp" />
+                </TableRow>
+            </TableLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Terminar Monitoreo"
+                android:id="@+id/button5"
+                android:onClick="onClickTerminarMonitoreo"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
             <TextView
-                android:layout_width="70dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/temperatura"
-                android:id="@+id/textView14"
-                android:layout_column="2"
-                android:textColor="#ff000000"
-                android:textSize="15dp" />
+                android:text="¡ALERTA!"
+                android:id="@+id/textView16"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="70dp" />
 
             <TextView
-                android:layout_width="70dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/radiacion"
-                android:id="@+id/textView15"
-                android:layout_column="3"
+                android:id="@+id/nombreTV"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="25dp"
                 android:textColor="#ff000000"
-                android:textSize="15dp" />
-        </TableRow>
-    </TableLayout>
+                android:textSize="25dp"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/causaTV"
+                android:layout_marginTop="25dp"
+                android:textColor="#ff000000"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/parametroTV"
+                android:layout_marginTop="35dp"
+                android:textColor="#ff000000" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enterado"
+                android:id="@+id/button3"
+                android:layout_gravity="center_horizontal"
+                android:onClick="onClickEnterado"
+                android:layout_marginTop="75dp" />
+
+        </LinearLayout>
+
+    </ViewSwitcher>
+
 </LinearLayout>

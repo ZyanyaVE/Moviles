@@ -63,6 +63,7 @@ public class Monitoreo {
                             interfaz.updateValues(temp, rc, 0, ind);
                             if (temp > 38){
                                 interfaz.newNotification("¡Alerta! Temperatura eleveda", "¡Alerta! Trabajador en riesgo", u.getNombre() + " " + u.getApellidos()+ " está en riesgo.", ind);
+                                interfaz.alerta(u.getNombre() + " " + u.getApellidos(), "Temp", String.valueOf(temp));
                             }
 
 
@@ -71,7 +72,6 @@ public class Monitoreo {
 
                     });
                     i++;
-                    //Toast.makeText(interfaz, "LALALALALA", Toast.LENGTH_SHORT).show();
                 }
             }
         };
