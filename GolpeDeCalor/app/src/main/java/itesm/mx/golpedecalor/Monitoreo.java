@@ -22,13 +22,28 @@ public class Monitoreo {
 
     private float getTemp(Usuario user){
         Random rand = new Random();
-        float temp = rand.nextFloat() * (40.0f - 37.0f) + 37.0f;
+        float temp;
+        if (rand.nextDouble() < .8){
+            temp = rand.nextFloat() * (38.0f - 37.0f) + 37.0f;
+        }
+        else{
+            temp = rand.nextFloat() * (40.0f - 38.0f) + 38.0f;
+        }
+
         return temp;
     }
 
     private int getRitmoCardiaco(Usuario user){
         Random rand = new Random();
-        int rc = rand.nextInt((200 - 100) + 1) + 100;
+        int rc;
+        if (rand.nextDouble() < .8){
+            rc = rand.nextInt((100 - 60) + 1) + 60;
+        }
+        else{
+            rc = rand.nextInt((120 - 100) + 1) + 100;
+        }
+
+
         return rc;
     }
 
@@ -46,9 +61,8 @@ public class Monitoreo {
                     handler.post(new Runnable() {
                         public void run() {
                             interfaz.updateValues(temp, rc, 0, ind);
-
-                            if (temp > 39){
-                                //interfaz.newNotification("Temperatura alta", u.getNombre(), u.getNombre()+ "Cuidado temp alta");
+                            if (temp > 38){
+                                interfaz.newNotification("¡Alerta! Temperatura eleveda", "¡Alerta! Trabajador en riesgo", u.getNombre() + " " + u.getApellidos()+ " está en riesgo.", ind);
                             }
 
 

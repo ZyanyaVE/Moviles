@@ -134,7 +134,7 @@ public class MonitoringActivity extends ActionBarActivity {
         rad.get(ind).setText(String.valueOf(radia));
     }
 
-    public void newNotification(String titulo, String descripCorta, String contenido){
+    public void newNotification(String titulo, String descripCorta, String contenido, int notifID){
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext());
         notificationBuilder.setContentTitle(titulo);
         notificationBuilder.setTicker(descripCorta);
@@ -143,9 +143,9 @@ public class MonitoringActivity extends ActionBarActivity {
         notificationBuilder.setContentIntent(pendingIntent);
 
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(MY_NOTIFICATION_ID, notificationBuilder.build());
+        notificationManager.notify(notifID, notificationBuilder.build());
 
-        MY_NOTIFICATION_ID++;
+
 
 
 
