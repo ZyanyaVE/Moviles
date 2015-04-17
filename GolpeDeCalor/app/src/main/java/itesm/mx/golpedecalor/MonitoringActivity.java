@@ -1,5 +1,10 @@
 package itesm.mx.golpedecalor;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +28,12 @@ public class MonitoringActivity extends ActionBarActivity {
     DataBaseOperations dbo;
     TableLayout tablaTL;
     Monitoreo monitoreoHelper;
+
+    private Intent notificationIntent;
+    private PendingIntent pendingIntent;
+    NotificationManager notificationManager;
+
+    private int MY_NOTIFICATION_ID = 1;
 
     private ArrayList<TextView> rc;
     private ArrayList<TextView> temp;
@@ -84,6 +95,10 @@ public class MonitoringActivity extends ActionBarActivity {
         }
         monitoreoHelper.empezarMonitoreo();
 
+        notificationIntent = new Intent(getApplicationContext(), MonitoringActivity.class);
+        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        pendingIntent = PendingIntent.getActivity(getApplicationContext(),0,notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
     }
 
     @Override
@@ -117,6 +132,23 @@ public class MonitoringActivity extends ActionBarActivity {
         temp.get(ind).setText(String.format("%.1f", tempa));
         rc.get(ind).setText(String.valueOf(rcard));
         rad.get(ind).setText(String.valueOf(radia));
+    }
+
+    public void newNotification(String titulo, String descripCorta, String contenido){
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext());
+        notificationBuilder.setContentTitle(titulo);
+        notificationBuilder.setTicker(descripCorta);
+        notificationBuilder.setSmallIcon(android.R.drawable.stat_sys_warning);
+        notificationBuilder.setContentText(contenido);
+        notificationBuilder.setContentIntent(pendingIntent);
+
+        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(MY_NOTIFICATION_ID, notificationBuilder.build());
+
+        MY_NOTIFICATION_ID++;
+
+
+
     }
 
     @Override
