@@ -51,7 +51,7 @@ public class SignUpActivity extends ActionBarActivity {
         }
 
 
-        @Override
+        @Overrid
         protected void onResume()   {
             try {
                 dbo.open();
