@@ -75,6 +75,8 @@ public class DataBaseOperations {
         return db.insert(TABLE_USERS, null, values);
     }
 
+
+
     public long addGroup (Grupo grupo, ArrayList<Usuario> integrantes){
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, grupo.getNombre());
@@ -168,6 +170,13 @@ public class DataBaseOperations {
 
         return encontrado;
 
+    }
+    public boolean deleteMember(long id)
+    {
+        ContentValues values = new ContentValues();
+        values.putNull(COLUMN_GROUPID);
+        //return db.delete(TABLE_GROUPS, COLUMN_ID + "=" + id + " and " + COLUMN_GROUPID + "=" + idgpo, null) > 0;
+        return db.update(TABLE_USERS, values, COLUMN_ID  + "=" + id, null) > 0;
     }
 
 }
