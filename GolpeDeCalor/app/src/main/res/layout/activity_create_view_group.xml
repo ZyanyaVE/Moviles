@@ -6,7 +6,8 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="itesm.mx.golpedecalor.CreateViewGroupActivity"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="#f0f7e8">
 
     <ViewSwitcher
         android:layout_width="match_parent"
@@ -14,10 +15,16 @@
         android:id="@+id/cambioVS" >
 
         <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/groupNameET"
-            android:hint="@string/nombregpo" />
+            android:hint="@string/nombregpo"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/edittext_top_bg"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:textColorHint="#cccccc"
+            android:layout_marginBottom="2dp"
+            android:inputType="number" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,29 +40,43 @@
         android:id="@+id/textView9"
         android:textColor="#ff000000"
         android:textSize="25dp"
+        android:textStyle="bold"
         android:layout_marginTop="10dp" />
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="239dp"
+        android:layout_height="240dp"
         android:id="@+id/groupMembersLV"
         android:layout_marginTop="10dp"
-        android:layout_weight="0.24" />
+        android:layout_weight="0.24"
+        android:layout_marginLeft="10dp"/>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/agregarpersona"
         android:id="@+id/addPersonBT"
         android:onClick="onClickAgregarPersona"
-        android:layout_gravity="center_horizontal" />
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginTop="25dp"
+        style="@style/DefaultButtonText"
+        android:textSize="15sp"
+        android:background="@drawable/button_default_bg"
+        android:layout_gravity="center_horizontal"/>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/empezarmonitoreo"
         android:id="@+id/startMonitoringBT"
         android:onClick="onClickEmpezarMonitoreo"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp" />
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        style="@style/DefaultButtonText"
+        android:textSize="15sp"
+        android:background="@drawable/button_default_bg"
+        android:layout_gravity="center_horizontal"/>
+
+
+
 </LinearLayout>
