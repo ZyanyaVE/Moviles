@@ -179,4 +179,14 @@ public class DataBaseOperations {
         return db.update(TABLE_USERS, values, COLUMN_ID  + "=" + id, null) > 0;
     }
 
+    public boolean deleteGroup(long id)
+    {
+        ContentValues values = new ContentValues();
+        values.putNull(COLUMN_GROUPID);
+        //return db.delete(TABLE_GROUPS, COLUMN_ID + "=" + id + " and " + COLUMN_GROUPID + "=" + idgpo, null) > 0;
+        db.delete(TABLE_GROUPS, COLUMN_GROUPID + "=" + id, null);
+        return db.update(TABLE_USERS, values, COLUMN_GROUPID  + "=" + id, null) > 0;
+
+    }
+
 }

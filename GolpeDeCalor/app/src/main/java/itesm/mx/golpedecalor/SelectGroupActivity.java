@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +26,7 @@ public class SelectGroupActivity extends ActionBarActivity {
     Usuario usuarioPrincipal;
     DataBaseOperations dbo;
     ArrayList<Grupo> grupos;
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +74,11 @@ public class SelectGroupActivity extends ActionBarActivity {
             nombres.add(g.getNombre());
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.activity_row, R.id.rowTV, nombres);
+        adapter = new ArrayAdapter<String>(this, R.layout.activity_row, R.id.rowTV, nombres);
         miembrosLV.setAdapter(adapter);
+        registerForContextMenu(miembrosLV);
+        registerForContextMenu(miembrosLV);
+
 
         super.onResume();
     }
@@ -117,5 +122,28 @@ public class SelectGroupActivity extends ActionBarActivity {
         intent.putExtra("existente?", false);
         intent.putExtra("Usuario", usuarioPrincipal);
         startActivity(intent);
+    }
+
+    // Accesa al layout de menu menu_context
+    @Override
+    public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenu.ContextMenuInfo menuInfo) {
+        getMenuInflater().inflate(R.menu.menu_context, menu);
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+    // Despliega las opciones del menú cuando se realiza un long click
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+        int id = item.getItemId();
+
+        // Si se elimina se llama a la función de eliminar en DBO
+        if (id == R.id.delete){
+            Toast.makeText(getApplicationContext(), "DELETE " + (grupos.get(info.position)).getId(), Toast.LENGTH_LONG).show();
+            boolean deleted = dbo.deleteGroup((grupos.get(info.position)).getId());
+            return true;
+        }
+        adapter.notifyDataSetChanged();
+        return super.onContextItemSelected(item);
     }
 }

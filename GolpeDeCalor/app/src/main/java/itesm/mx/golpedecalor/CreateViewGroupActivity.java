@@ -214,11 +214,13 @@ public class CreateViewGroupActivity extends ActionBarActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
         int id = item.getItemId();
 
+        // Si se elimina se llama a la función de eliminar en DBO
         if (id == R.id.delete){
             Toast.makeText(getApplicationContext(), "DELETE " + (miembrosGpo.get(info.position)).getId(), Toast.LENGTH_LONG).show();
             boolean deleted = dbo.deleteMember((miembrosGpo.get(info.position)).getId());
             return true;
         }
+        adapter.notifyDataSetChanged();
         return super.onContextItemSelected(item);
     }
 }
