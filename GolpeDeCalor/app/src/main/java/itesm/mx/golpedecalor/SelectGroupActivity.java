@@ -27,6 +27,7 @@ public class SelectGroupActivity extends ActionBarActivity {
     DataBaseOperations dbo;
     ArrayList<Grupo> grupos;
     ArrayAdapter<String> adapter;
+    ArrayList<String> nombres;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,7 @@ public class SelectGroupActivity extends ActionBarActivity {
 
         grupos = new ArrayList(dbo.getAllGroups());
 
-        ArrayList<String> nombres = new ArrayList<>();
+        nombres = new ArrayList<>();
 
         for (Grupo g : grupos){
             nombres.add(g.getNombre());
@@ -139,11 +140,16 @@ public class SelectGroupActivity extends ActionBarActivity {
 
         // Si se elimina se llama a la función de eliminar en DBO
         if (id == R.id.delete){
-            Toast.makeText(getApplicationContext(), "DELETE " + (grupos.get(info.position)).getId(), Toast.LENGTH_LONG).show();
+            //(grupos.get(info.position)).getId()
+
+            Toast.makeText(getApplicationContext(), "DELETE " + nombres.get(info.position), Toast.LENGTH_LONG).show();
             boolean deleted = dbo.deleteGroup((grupos.get(info.position)).getId());
+
+            nombres.remove(info.position);
+            adapter.notifyDataSetChanged();
+
             return true;
         }
-        adapter.notifyDataSetChanged();
         return super.onContextItemSelected(item);
     }
 }
