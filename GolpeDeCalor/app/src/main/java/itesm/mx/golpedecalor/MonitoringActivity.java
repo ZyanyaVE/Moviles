@@ -84,19 +84,19 @@ public class MonitoringActivity extends ActionBarActivity {
 
         for(Usuario u : grupo.getIntegrantes()){
             TableRow tr = new TableRow(this);
-            tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+            tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
 
             TextView tvAux = new TextView(this);
             tvAux.setText(u.getNombre() + " " + u.getApellidos());
 
             TextView rcAux = new TextView(this);
-            rcAux.setText("0");
+            rcAux.setText("    0    ");
 
             TextView tempAux = new TextView(this);
-            tempAux.setText("0");
+            tempAux.setText("    0    ");
 
             TextView radAux = new TextView(this);
-            radAux.setText("0");
+            radAux.setText("    0    ");
 
             rc.add(rcAux);
             temp.add(tempAux);
