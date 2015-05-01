@@ -32,9 +32,9 @@
 
             <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="300dp"
                 android:layout_marginTop="15dp"
-                android:id="@+id/titulosTL">
+                android:id="@+id/tablaTL">
 
                 <TableRow
                     android:layout_width="fill_parent"
@@ -83,14 +83,6 @@
                 </TableRow>
             </TableLayout>
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="245dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/tablaTL">
-            </TableLayout>
-
             <Button
                 android:text="Terminar Monitoreo"
                 android:id="@+id/button5"
@@ -100,6 +92,7 @@
                 android:padding="10dp"
                 android:layout_marginTop="15dp"
                 style="@style/DefaultButtonText"
+                android:textSize="15sp"
                 android:background="@drawable/button_default_bg"
                 android:layout_gravity="center_horizontal"/>
 
