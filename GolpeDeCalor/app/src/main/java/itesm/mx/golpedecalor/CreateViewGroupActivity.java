@@ -149,6 +149,9 @@ public class CreateViewGroupActivity extends ActionBarActivity {
                     grupo = new Grupo(0, groupNameET.getText().toString());
                     long idnumber = dbo.addGroup(grupo, miembrosGpo);
                     grupo.setId(idnumber);
+                    viewSwitcher.showNext();
+                    groupNameTV.setText(grupo.getNombre());
+                    existente = true;
                     Toast.makeText(getApplicationContext(), "Grupo agregado correctamente", Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -169,6 +172,7 @@ public class CreateViewGroupActivity extends ActionBarActivity {
     // Se ingresa a la activity de AddUserActivity
     public void onClickAgregarPersona(View v){
         Intent intent = new Intent(CreateViewGroupActivity.this, AddUserActivity.class);
+        intent.putExtra("usuarios", miembrosGpo);
         startActivityForResult(intent, PICK_CONTACT_REQUEST);
     }
 
@@ -191,7 +195,7 @@ public class CreateViewGroupActivity extends ActionBarActivity {
                nombres.add(user.getNombre() + " " + user.getApellidos());
 
                 adapter.notifyDataSetChanged();
-                System.out.println("Entra!");
+
                 if (existente){
                     dbo.addPersonToGroup(grupo, user);
                 }

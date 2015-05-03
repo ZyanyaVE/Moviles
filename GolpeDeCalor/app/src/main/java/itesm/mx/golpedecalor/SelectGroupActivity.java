@@ -1,6 +1,7 @@
 package itesm.mx.golpedecalor;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,8 +15,24 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
+import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class SelectGroupActivity extends ActionBarActivity {
@@ -151,5 +168,59 @@ public class SelectGroupActivity extends ActionBarActivity {
             return true;
         }
         return super.onContextItemSelected(item);
+    }
+
+    public void onClickSincronizar(View v){
+        new RequestTask().execute("http://golpedecalor.comoj.com/dbHandler.php");
+        Toast.makeText(getApplicationContext(), "Sincronizacion Exitosa", Toast.LENGTH_SHORT).show();
+    }
+
+    class RequestTask extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... uri) {
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(uri[0]);
+            try {
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                ArrayList<Grupo> grupos = dbo.getAllGroups();
+                ArrayList<Usuario> usuarios = dbo.getAllUsers();
+                int i = 0;
+
+                for (Grupo g : grupos){
+                    nameValuePairs.add(new BasicNameValuePair("grupo-"+ i, g.getNombre() + "-" + g.getId()));
+                    i++;
+                }
+                nameValuePairs.add(new BasicNameValuePair("del", "--"));
+                i = 0;
+                for (Usuario u : usuarios){
+                    nameValuePairs.add(new BasicNameValuePair("usuario-"+ i, u.getId() + "*" + u.getNombre() + "*" + u.getApellidos() + "*" + u.getFechaNacimiento() + "*" + u.getSexo()));
+                    i++;
+                }
+
+
+
+                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+                HttpResponse response = httpclient.execute(httpPost);
+                return EntityUtils.toString(response.getEntity());
+
+
+            } catch (ClientProtocolException e) {
+                //TODO Handle problems..
+            } catch (IOException e) {
+                //TODO Handle problems..
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            System.out.println(result);
+            super.onPostExecute(result);
+            //Do anything with response..
+        }
     }
 }

@@ -189,4 +189,24 @@ public class DataBaseOperations {
 
     }
 
+    public ArrayList<Usuario> getAllUsers(){
+        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+
+        String selectQuery = "SELECT * FROM " + TABLE_USERS;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()){
+            do{
+                Usuario usuario = new Usuario(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
+                usuarios.add(usuario);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        return usuarios;
+
+    }
+
+
+
 }
