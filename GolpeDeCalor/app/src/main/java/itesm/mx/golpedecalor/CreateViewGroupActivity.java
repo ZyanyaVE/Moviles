@@ -157,16 +157,15 @@ public class CreateViewGroupActivity extends ActionBarActivity {
                 else{
                     Toast.makeText(getApplicationContext(), "Favor de agregar al menos una persona", Toast.LENGTH_SHORT).show();
                 }
+                Intent intent = new Intent(CreateViewGroupActivity.this, MonitoringActivity.class);
+                intent.putExtra("id", grupo.getId());
+                startActivity(intent);
             }
             else{
                 Toast.makeText(getApplicationContext(), "Favor de llenar el nombre del grupo", Toast.LENGTH_SHORT).show();
             }
+
         }
-
-        Intent intent = new Intent(CreateViewGroupActivity.this, MonitoringActivity.class);
-        intent.putExtra("id", grupo.getId());
-        startActivity(intent);
-
     }
 
     // Se ingresa a la activity de AddUserActivity
