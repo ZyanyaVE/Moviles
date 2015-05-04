@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -51,6 +52,8 @@ public class MonitoringActivity extends ActionBarActivity {
 
     DialogInterface.OnClickListener dialogClickListener;
 
+    MediaPlayer mp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,7 @@ public class MonitoringActivity extends ActionBarActivity {
         causaTV = (TextView) findViewById(R.id.causaTV);
         parametroTV = (TextView) findViewById(R.id.parametroTV);
         switcherVS = (ViewSwitcher) findViewById(R.id.switcherVS);
+        mp = MediaPlayer.create(this, R.raw.alert);
 
         // Inicialización
         rc = new ArrayList<TextView>();
@@ -189,6 +193,7 @@ public class MonitoringActivity extends ActionBarActivity {
             alerta = true;
         }
 
+        mp.start();
         nombreTV.setText(nombre);
         if (causa == "Temp"){
             causaTV.setText("Se le presentó una temperatura muy elevada");

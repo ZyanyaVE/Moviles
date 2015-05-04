@@ -58,12 +58,16 @@
         />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Sincronizar"
         android:id="@+id/button6"
         android:onClick="onClickSincronizar"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:padding="0dp"
+        android:layout_marginTop="10dp"
+        style="@style/DefaultButtonText"
+        android:background="@drawable/button_default_bg"
+        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>
