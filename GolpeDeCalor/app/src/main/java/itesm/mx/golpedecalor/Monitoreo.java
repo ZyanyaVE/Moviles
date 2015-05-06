@@ -33,18 +33,26 @@ public class Monitoreo {
         return temp;
     }
 
-    private int getRitmoCardiaco(Usuario user){
+    private int getRitmoCardiaco(Usuario user) {
         Random rand = new Random();
         int rc;
-        if (rand.nextDouble() < .8){
+        if (rand.nextDouble() < .8) {
             rc = rand.nextInt((100 - 60) + 1) + 60;
-        }
-        else{
+        } else {
             rc = rand.nextInt((120 - 100) + 1) + 100;
         }
-
-
         return rc;
+    }
+
+    private int getRadiacion(Usuario user) {
+        Random rand = new Random();
+        int rad;
+        if (rand.nextDouble() < .8) {
+            rad = rand.nextInt((100 - 50) + 1) + 50;
+        } else {
+            rad = rand.nextInt((150 - 100) + 1) + 100;
+        }
+        return rad;
     }
 
     public void empezarMonitoreo(){
@@ -57,15 +65,24 @@ public class Monitoreo {
                 for (final Usuario u : grupo.getIntegrantes()){
                     final float temp = getTemp(u);
                     final int rc = getRitmoCardiaco(u);
+                    final int rad = getRadiacion(u);
                     final int ind = i;
                     handler.post(new Runnable() {
                         public void run() {
-                            interfaz.updateValues(temp, rc, 0, ind);
+                            interfaz.updateValues(temp, rc, rad, ind);
                             if (temp > 39.5){
                                 interfaz.newNotification("¡Alerta! Temperatura eleveda", "¡Alerta! Trabajador en riesgo", u.getNombre() + " " + u.getApellidos()+ " está en riesgo.", ind);
                                 interfaz.alerta(u.getNombre() + " " + u.getApellidos(), "Temp", String.valueOf(temp));
-
                             }
+                            if (rc > 115){
+                                interfaz.newNotification("¡Alerta! Ritmo Cardiaco elevado", "¡Alerta! Trabajador en riesgo", u.getNombre() + " " + u.getApellidos()+ " está en riesgo.", ind);
+                                interfaz.alerta(u.getNombre() + " " + u.getApellidos(), "RC", String.valueOf(rc));
+                            }
+                            if (rad > 140){
+                                interfaz.newNotification("¡Alerta! Radiación solar elevada", "¡Alerta! Trabajador en riesgo", u.getNombre() + " " + u.getApellidos()+ " está en riesgo.", ind);
+                                interfaz.alerta(u.getNombre() + " " + u.getApellidos(), "Rad", String.valueOf(rad));
+                            }
+
 
                         }
 

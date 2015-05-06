@@ -47,7 +47,7 @@ public class MonitoringActivity extends ActionBarActivity {
 
     private boolean alerta;
 
-    TextView nombreTV, causaTV, parametroTV;
+    TextView nombreTV, causaTV, parametroTV, recomendacionesTV;
     ViewSwitcher switcherVS;
 
     DialogInterface.OnClickListener dialogClickListener;
@@ -72,6 +72,7 @@ public class MonitoringActivity extends ActionBarActivity {
         parametroTV = (TextView) findViewById(R.id.parametroTV);
         switcherVS = (ViewSwitcher) findViewById(R.id.switcherVS);
         mp = MediaPlayer.create(this, R.raw.alert);
+        recomendacionesTV = (TextView) findViewById(R.id.recomendacionesTV);
 
         // Inicialización
         rc = new ArrayList<TextView>();
@@ -95,14 +96,20 @@ public class MonitoringActivity extends ActionBarActivity {
 
             TextView tvAux = new TextView(this);
             tvAux.setText(u.getNombre() + " " + u.getApellidos());
+            tvAux.setLayoutParams(new TableRow.LayoutParams(400, TableRow.LayoutParams.WRAP_CONTENT));
 
             TextView rcAux = new TextView(this);
             rcAux.setText("5");
+            rcAux.setLayoutParams(new TableRow.LayoutParams(200, TableRow.LayoutParams.WRAP_CONTENT));
+
 
             TextView tempAux = new TextView(this);
             tempAux.setText("9");
+            tempAux.setLayoutParams(new TableRow.LayoutParams(200, TableRow.LayoutParams.WRAP_CONTENT));
+
             TextView radAux = new TextView(this);
             radAux.setText("10");
+            radAux.setLayoutParams(new TableRow.LayoutParams(100, TableRow.LayoutParams.WRAP_CONTENT));
 
             rc.add(rcAux);
             temp.add(tempAux);
@@ -198,13 +205,18 @@ public class MonitoringActivity extends ActionBarActivity {
         if (causa == "Temp"){
             causaTV.setText("Se le presentó una temperatura muy elevada");
             parametroTV.setText("Temperatura: " + parametro + "°C");
+            recomendacionesTV.setText(" -Resguardarse bajo la sombra \n -Hidratarse \n -Humedecer cabeza y " +
+                    "cuello para reducir temperatura");
         }
         else if (causa == "RC"){
             causaTV.setText("Se le presentó un ritmo cardiaco muy elevado");
             parametroTV.setText("Ritmo cardiáco: " + parametro + " ppm");
+            recomendacionesTV.setText(" -Resguardarse bajo la sombra \n -Descansar");
         }
-        else{
-
+        else if (causa == "Rad"){
+            causaTV.setText("Se le presentó una radiación solar muy elevada");
+            parametroTV.setText("Radiación solar: " + parametro + " MJ/m2");
+            recomendacionesTV.setText(" -Aplicar bloqueador solar \n -Resguardarse bajo la sombra \n -Hidratarse");
         }
     }
 
