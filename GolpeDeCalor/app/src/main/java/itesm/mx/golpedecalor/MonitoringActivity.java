@@ -110,7 +110,7 @@ public class MonitoringActivity extends ActionBarActivity {
         }
         monitoreoHelper.empezarMonitoreo();
 
-        notificationIntent = new Intent(getApplicationContext(), MonitoringActivity.class);
+        notificationIntent = new Intent(getApplicationContext(), NotificationActivity.class);
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         pendingIntent = PendingIntent.getActivity(getApplicationContext(),0,notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 

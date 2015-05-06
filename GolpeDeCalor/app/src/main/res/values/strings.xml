@@ -63,5 +63,6 @@
     <string name="title_activity_create_view_group">CreateViewGroupActivity</string>
     <string name="title_activity_add_user">AddUserActivity</string>
     <string name="title_activity_monitoring">MonitoringActivity</string>
+    <string name="title_activity_notification">NotificationActivity</string>
 
 </resources>
