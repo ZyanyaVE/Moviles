@@ -61,12 +61,11 @@ public class Monitoreo {
                     handler.post(new Runnable() {
                         public void run() {
                             interfaz.updateValues(temp, rc, 0, ind);
-                            if (temp > 38){
+                            if (temp > 39.5){
                                 interfaz.newNotification("¡Alerta! Temperatura eleveda", "¡Alerta! Trabajador en riesgo", u.getNombre() + " " + u.getApellidos()+ " está en riesgo.", ind);
                                 interfaz.alerta(u.getNombre() + " " + u.getApellidos(), "Temp", String.valueOf(temp));
+
                             }
-
-
 
                         }
 

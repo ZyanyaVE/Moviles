@@ -3,8 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/rowTV"
-    android:textColor="@android:color/black"
+    android:textColor="#333333"
     android:textSize="25dp"
-    >
+    android:background="@drawable/row"
+    android:paddingLeft="10dp"
+    android:textStyle="italic">
 
 </TextView>
+

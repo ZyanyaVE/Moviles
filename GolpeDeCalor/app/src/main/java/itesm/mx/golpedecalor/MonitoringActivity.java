@@ -6,6 +6,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -13,6 +15,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -48,6 +52,8 @@ public class MonitoringActivity extends ActionBarActivity {
 
     DialogInterface.OnClickListener dialogClickListener;
 
+    MediaPlayer mp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +71,7 @@ public class MonitoringActivity extends ActionBarActivity {
         causaTV = (TextView) findViewById(R.id.causaTV);
         parametroTV = (TextView) findViewById(R.id.parametroTV);
         switcherVS = (ViewSwitcher) findViewById(R.id.switcherVS);
+        mp = MediaPlayer.create(this, R.raw.alert);
 
         // Inicialización
         rc = new ArrayList<TextView>();
@@ -84,19 +91,18 @@ public class MonitoringActivity extends ActionBarActivity {
 
         for(Usuario u : grupo.getIntegrantes()){
             TableRow tr = new TableRow(this);
-            tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+            tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.FILL_PARENT));
 
             TextView tvAux = new TextView(this);
             tvAux.setText(u.getNombre() + " " + u.getApellidos());
 
             TextView rcAux = new TextView(this);
-            rcAux.setText("0");
+            rcAux.setText("5");
 
             TextView tempAux = new TextView(this);
-            tempAux.setText("0");
-
+            tempAux.setText("9");
             TextView radAux = new TextView(this);
-            radAux.setText("0");
+            radAux.setText("10");
 
             rc.add(rcAux);
             temp.add(tempAux);
@@ -106,6 +112,8 @@ public class MonitoringActivity extends ActionBarActivity {
             tr.addView(rcAux);
             tr.addView(tempAux);
             tr.addView(radAux);
+
+            tr.setBackgroundResource(R.drawable.tabla); // Asigna recurso de drawable a la row nueva
             tablaTL.addView(tr);
         }
         monitoreoHelper.empezarMonitoreo();
@@ -161,9 +169,9 @@ public class MonitoringActivity extends ActionBarActivity {
 
     //
     public void updateValues(float tempa, int rcard, int radia, int ind){
-        temp.get(ind).setText(String.format("%.1f", tempa));
-        rc.get(ind).setText(String.valueOf(rcard));
-        rad.get(ind).setText(String.valueOf(radia));
+        temp.get(ind).setText(String.format("%.1f", tempa) + "   ");
+        rc.get(ind).setText(String.valueOf(rcard) + "   ");
+        rad.get(ind).setText(String.valueOf(radia) + "   ");
     }
 
     public void newNotification(String titulo, String descripCorta, String contenido, int notifID){
@@ -185,6 +193,7 @@ public class MonitoringActivity extends ActionBarActivity {
             alerta = true;
         }
 
+        mp.start();
         nombreTV.setText(nombre);
         if (causa == "Temp"){
             causaTV.setText("Se le presentó una temperatura muy elevada");

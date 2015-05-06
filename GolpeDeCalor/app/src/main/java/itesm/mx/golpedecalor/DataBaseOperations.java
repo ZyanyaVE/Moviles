@@ -75,6 +75,8 @@ public class DataBaseOperations {
         return db.insert(TABLE_USERS, null, values);
     }
 
+
+
     public long addGroup (Grupo grupo, ArrayList<Usuario> integrantes){
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, grupo.getNombre());
@@ -169,5 +171,42 @@ public class DataBaseOperations {
         return encontrado;
 
     }
+    public boolean deleteMember(long id)
+    {
+        ContentValues values = new ContentValues();
+        values.putNull(COLUMN_GROUPID);
+        //return db.delete(TABLE_GROUPS, COLUMN_ID + "=" + id + " and " + COLUMN_GROUPID + "=" + idgpo, null) > 0;
+        return db.update(TABLE_USERS, values, COLUMN_ID  + "=" + id, null) > 0;
+    }
+
+    public boolean deleteGroup(long id)
+    {
+        ContentValues values = new ContentValues();
+        values.putNull(COLUMN_GROUPID);
+        //return db.delete(TABLE_GROUPS, COLUMN_ID + "=" + id + " and " + COLUMN_GROUPID + "=" + idgpo, null) > 0;
+        db.delete(TABLE_GROUPS, COLUMN_GROUPID + "=" + id, null);
+        return db.update(TABLE_USERS, values, COLUMN_GROUPID  + "=" + id, null) > 0;
+
+    }
+
+    public ArrayList<Usuario> getAllUsers(){
+        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+
+        String selectQuery = "SELECT * FROM " + TABLE_USERS;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()){
+            do{
+                Usuario usuario = new Usuario(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
+                usuarios.add(usuario);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        return usuarios;
+
+    }
+
+
 
 }

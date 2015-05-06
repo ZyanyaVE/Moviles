@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="itesm.mx.golpedecalor" >
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -9,7 +10,9 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,27 +21,39 @@
         </activity>
         <activity
             android:name=".SignUpActivity"
-            android:label="@string/title_activity_login" >
+            android:label="@string/title_activity_login"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".IngresarActivity"
-            android:label="@string/title_activity_ingresar" >
+            android:label="@string/title_activity_ingresar"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".SelectGroupActivity"
-            android:label="@string/title_activity_home" >
+            android:label="@string/title_activity_home"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ShowIDActivity"
-            android:label="@string/title_activity_show_id" >
+            android:label="@string/title_activity_show_id"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".CreateViewGroupActivity"
-            android:label="@string/title_activity_create_view_group" >
+            android:label="@string/title_activity_create_view_group"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".AddUserActivity"
-            android:label="@string/title_activity_add_user" >
+            android:label="@string/title_activity_add_user"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".MonitoringActivity"

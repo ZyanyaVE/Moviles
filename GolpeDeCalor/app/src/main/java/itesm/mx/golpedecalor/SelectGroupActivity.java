@@ -1,9 +1,11 @@
 package itesm.mx.golpedecalor;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,8 +15,24 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
+import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class SelectGroupActivity extends ActionBarActivity {
@@ -25,6 +43,8 @@ public class SelectGroupActivity extends ActionBarActivity {
     Usuario usuarioPrincipal;
     DataBaseOperations dbo;
     ArrayList<Grupo> grupos;
+    ArrayAdapter<String> adapter;
+    ArrayList<String> nombres;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,14 +86,17 @@ public class SelectGroupActivity extends ActionBarActivity {
 
         grupos = new ArrayList(dbo.getAllGroups());
 
-        ArrayList<String> nombres = new ArrayList<>();
+        nombres = new ArrayList<>();
 
         for (Grupo g : grupos){
             nombres.add(g.getNombre());
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.activity_row, R.id.rowTV, nombres);
+        adapter = new ArrayAdapter<String>(this, R.layout.activity_row, R.id.rowTV, nombres);
         miembrosLV.setAdapter(adapter);
+        registerForContextMenu(miembrosLV);
+        registerForContextMenu(miembrosLV);
+
 
         super.onResume();
     }
@@ -117,5 +140,87 @@ public class SelectGroupActivity extends ActionBarActivity {
         intent.putExtra("existente?", false);
         intent.putExtra("Usuario", usuarioPrincipal);
         startActivity(intent);
+    }
+
+    // Accesa al layout de menu menu_context
+    @Override
+    public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenu.ContextMenuInfo menuInfo) {
+        getMenuInflater().inflate(R.menu.menu_context, menu);
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+    // Despliega las opciones del menú cuando se realiza un long click
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+        int id = item.getItemId();
+
+        // Si se elimina se llama a la función de eliminar en DBO
+        if (id == R.id.delete){
+            //(grupos.get(info.position)).getId()
+
+            Toast.makeText(getApplicationContext(), "DELETE " + nombres.get(info.position), Toast.LENGTH_LONG).show();
+            boolean deleted = dbo.deleteGroup((grupos.get(info.position)).getId());
+
+            nombres.remove(info.position);
+            adapter.notifyDataSetChanged();
+
+            return true;
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    public void onClickSincronizar(View v){
+        new RequestTask().execute("http://golpedecalor.comoj.com/dbHandler.php");
+        Toast.makeText(getApplicationContext(), "Sincronizacion Exitosa", Toast.LENGTH_SHORT).show();
+    }
+
+    class RequestTask extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... uri) {
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(uri[0]);
+            try {
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                ArrayList<Grupo> grupos = dbo.getAllGroups();
+                ArrayList<Usuario> usuarios = dbo.getAllUsers();
+                int i = 0;
+
+                for (Grupo g : grupos){
+                    nameValuePairs.add(new BasicNameValuePair("grupo-"+ i, g.getNombre() + "-" + g.getId()));
+                    i++;
+                }
+                nameValuePairs.add(new BasicNameValuePair("del", "--"));
+                i = 0;
+                for (Usuario u : usuarios){
+                    nameValuePairs.add(new BasicNameValuePair("usuario-"+ i, u.getId() + "*" + u.getNombre() + "*" + u.getApellidos() + "*" + u.getFechaNacimiento() + "*" + u.getSexo()));
+                    i++;
+                }
+
+
+
+                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+                HttpResponse response = httpclient.execute(httpPost);
+                return EntityUtils.toString(response.getEntity());
+
+
+            } catch (ClientProtocolException e) {
+                //TODO Handle problems..
+            } catch (IOException e) {
+                //TODO Handle problems..
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            System.out.println(result);
+            super.onPostExecute(result);
+            //Do anything with response..
+        }
     }
 }

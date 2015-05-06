@@ -5,9 +5,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -95,7 +97,7 @@ public class CreateViewGroupActivity extends ActionBarActivity {
 
         adapter = new ArrayAdapter<String>(this, R.layout.activity_row, R.id.rowTV, nombres);
         groupMembersLV.setAdapter(adapter);
-
+        registerForContextMenu(groupMembersLV);
 
     }
 
@@ -140,7 +142,6 @@ public class CreateViewGroupActivity extends ActionBarActivity {
 
     public void onClickEmpezarMonitoreo(View v){
         if (existente){
-
         }
         else{
             if (!groupNameET.getText().toString().equals("")){
@@ -148,28 +149,35 @@ public class CreateViewGroupActivity extends ActionBarActivity {
                     grupo = new Grupo(0, groupNameET.getText().toString());
                     long idnumber = dbo.addGroup(grupo, miembrosGpo);
                     grupo.setId(idnumber);
+                    viewSwitcher.showNext();
+                    groupNameTV.setText(grupo.getNombre());
+                    existente = true;
                     Toast.makeText(getApplicationContext(), "Grupo agregado correctamente", Toast.LENGTH_SHORT).show();
-
-
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Favor de agregar al menos una persona", Toast.LENGTH_SHORT).show();
                 }
+                Intent intent = new Intent(CreateViewGroupActivity.this, MonitoringActivity.class);
+                intent.putExtra("id", grupo.getId());
+                startActivity(intent);
             }
             else{
                 Toast.makeText(getApplicationContext(), "Favor de llenar el nombre del grupo", Toast.LENGTH_SHORT).show();
             }
         }
-
-        Intent intent = new Intent(CreateViewGroupActivity.this, MonitoringActivity.class);
-        intent.putExtra("id", grupo.getId());
-        startActivity(intent);
-
+        if (!groupNameTV.getText().toString().equals("")) {
+            Intent intent = new Intent(CreateViewGroupActivity.this, MonitoringActivity.class);
+            intent.putExtra("id", grupo.getId());
+            startActivity(intent);
+        }else{
+            Toast.makeText(getApplicationContext(), "Favor de llenar el nombre del grupo", Toast.LENGTH_SHORT).show();
+        }
     }
 
     // Se ingresa a la activity de AddUserActivity
     public void onClickAgregarPersona(View v){
         Intent intent = new Intent(CreateViewGroupActivity.this, AddUserActivity.class);
+        intent.putExtra("usuarios", miembrosGpo);
         startActivityForResult(intent, PICK_CONTACT_REQUEST);
     }
 
@@ -192,17 +200,39 @@ public class CreateViewGroupActivity extends ActionBarActivity {
                nombres.add(user.getNombre() + " " + user.getApellidos());
 
                 adapter.notifyDataSetChanged();
-                System.out.println("Entra!");
+
                 if (existente){
                     dbo.addPersonToGroup(grupo, user);
                 }
 
                 System.out.println("lala");
-
-
             }
-
         }
     }
 
+    // Accesa al layout de menu menu_context
+    @Override
+    public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenu.ContextMenuInfo menuInfo) {
+        getMenuInflater().inflate(R.menu.menu_context, menu);
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+    // Despliega las opciones del menú cuando se realiza un long click
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+        int id = item.getItemId();
+
+        // Si se elimina se llama a la función de eliminar en DBO
+        if (id == R.id.delete){
+            Toast.makeText(getApplicationContext(), "DELETE " + (miembrosGpo.get(info.position)).getId(), Toast.LENGTH_LONG).show();
+            boolean deleted = dbo.deleteMember((miembrosGpo.get(info.position)).getId());
+            nombres.remove(info.position);
+            adapter.notifyDataSetChanged();
+
+            return true;
+        }
+        adapter.notifyDataSetChanged();
+        return super.onContextItemSelected(item);
+    }
 }

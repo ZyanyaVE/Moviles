@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 public class AddUserActivity extends ActionBarActivity {
@@ -19,6 +20,7 @@ public class AddUserActivity extends ActionBarActivity {
     final static int PICK_CONTACT_REQUEST = 1995;
     EditText idET;
     DataBaseOperations dbo;
+    ArrayList<Usuario> miembrosGpo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,9 @@ public class AddUserActivity extends ActionBarActivity {
         // Referencias a objetos de interface
         idET = (EditText) findViewById(R.id.idET);
         dbo = new DataBaseOperations(getApplicationContext());
+
+        miembrosGpo = getIntent().getParcelableArrayListExtra("usuarios");
+
 
     }
 
@@ -75,10 +80,23 @@ public class AddUserActivity extends ActionBarActivity {
         if (!idET.getText().toString().equals("")){  // Verificación de variables
             Usuario user = dbo.findAccount(Integer.parseInt(idET.getText().toString()));
             if (user != null){
-                Intent intent = new Intent();
-                intent.putExtra("id", user.getId());
-                setResult(RESULT_OK, intent);
-                finish();
+                boolean encontrado = false;
+                for (Usuario u : miembrosGpo){
+                    if (u.getId() == user.getId()){
+                        encontrado = true;
+                        break;
+                    }
+                }
+
+                if (!encontrado) {
+                    Intent intent = new Intent();
+                    intent.putExtra("id", user.getId());
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Este usuario ya pertenece al grupo.", Toast.LENGTH_SHORT).show();
+                }
             }
             else{
                 Toast.makeText(getApplicationContext(), "El número de id ingresado no existe", Toast.LENGTH_SHORT).show();

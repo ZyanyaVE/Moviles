@@ -85,25 +85,29 @@ public class SignUpActivity extends ActionBarActivity {
 
                 //Se checa que el mes y el año esten en un rango aceptable
                 if (mesInt > 0 && mesInt < 13 && añoInt > 1915 && añoInt < 2015){
-                    Calendar cal = new GregorianCalendar(añoInt, mesInt, 1);
-
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.YEAR, añoInt);
+                    calendar.set(Calendar.MONTH, mesInt - 1);
+                    int numDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
                     //Se checa si el dia cae dentro del mes correcto
-                    if (diaInt <= cal.getActualMaximum(Calendar.DAY_OF_MONTH)){
+                    if (diaInt <= numDays){
 
                         Usuario user = new Usuario(0, primerNombre, apellidos, diaInt, mesInt, añoInt, sexo);
                         long id = dbo.registerUser(user);
                         user.setId(id);
-                        Toast.makeText(getApplicationContext(), "Usuario creado correctamente", Toast.LENGTH_LONG).show();
+
 
                         if (registroInicial) {
                             Intent mostrarIDIntent = new Intent(SignUpActivity.this, ShowIDActivity.class);
                             mostrarIDIntent.putExtra("Usuario", user);
+                            Toast.makeText(getApplicationContext(), "Usuario creado correctamente", Toast.LENGTH_LONG).show();
                             startActivity(mostrarIDIntent);
                         }
                         else{
                             Intent intent = new Intent();
                             intent.putExtra("id", id);
                             setResult(RESULT_OK, intent);
+                            Toast.makeText(getApplicationContext(), "Usuario creado correctamente, su ID es: " + id, Toast.LENGTH_LONG).show();
                             finish();
                         }
                     }
