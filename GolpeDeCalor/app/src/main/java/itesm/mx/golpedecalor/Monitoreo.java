@@ -91,7 +91,7 @@ public class Monitoreo {
                 }
             }
         };
-        timer.schedule(monitorear, 01, 1000*2);
+        timer.schedule(monitorear, 01, 1000*5);
     }
 
     public void terminarMonitoreo(){
