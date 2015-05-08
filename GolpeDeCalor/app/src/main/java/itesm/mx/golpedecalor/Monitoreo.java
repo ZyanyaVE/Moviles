@@ -34,6 +34,10 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Clase helper que sirve para relaizar el monitoreo de los usuarios
+ */
+
 public class Monitoreo {
     Grupo grupo;
     MonitoringActivity interfaz;
@@ -44,6 +48,11 @@ public class Monitoreo {
         this.interfaz = interfaz;
     }
 
+    /**
+     * Método utilizado para obtener el valor de temperatura del usuario
+     * @param user Es el usuario al cual se le quiere obtener su temperatura
+     * @return Regresa el valor de la temperatura
+     */
     private float getTemp(Usuario user){
         Random rand = new Random();
         float temp;
@@ -57,6 +66,11 @@ public class Monitoreo {
         return temp;
     }
 
+    /**
+     * Método utilizado para obtener el valor del ritmo cardiaco del usuario
+     * @param user Es el usuario al cual se le quiere obtener su ritmo cardiaco
+     * @return Regresa el valor del ritmo cardiaco
+     */
     private int getRitmoCardiaco(Usuario user) {
         Random rand = new Random();
         int rc;
@@ -68,6 +82,11 @@ public class Monitoreo {
         return rc;
     }
 
+    /**
+     * Método utilizado para obtener el valor de radiación del usuario
+     * @param user Es el usuario al cual se le quiere obtener su radiación
+     * @return Regresa el valor de la radiación
+     */
     private int getRadiacion(Usuario user) {
         Random rand = new Random();
         int rad;
@@ -79,6 +98,11 @@ public class Monitoreo {
         return rad;
     }
 
+    /**
+     * Este método lo que hace es empezar el monitoreo, lo hace creando un timer
+     * el cual corrrerá cada cierto tiempo y obtendrá el valor de los parámetros,
+     * después de esto checará si supera el valor deseado.
+     */
     public void empezarMonitoreo(){
         timer = new Timer();
         final Handler handler = new Handler();

@@ -103,7 +103,10 @@ public class AddUserActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Agregar usuario a un grupo
+    /**
+     * Método que sirve como handler para el botón de agregar usuario
+     * @param v Es la vista del botón
+     */
       public void onClickAgregarUsuario(View v){
         if (!idET.getText().toString().equals("")){  // Verificación de variables
             Usuario user = dbo.findAccount(Integer.parseInt(idET.getText().toString()));
@@ -135,7 +138,10 @@ public class AddUserActivity extends ActionBarActivity {
         }
     }
 
-    // Si se quiere agregar un usuario no registrado al grupo
+    /**
+     * Método que sirve como handler para el botón de registrarse
+     * @param v Es la vista del botón
+     */
     public void onClickRegistrarUsuario(View v){
         Intent intent = new Intent(AddUserActivity.this, SignUpActivity.class);
         intent.putExtra("registroinicial", false);

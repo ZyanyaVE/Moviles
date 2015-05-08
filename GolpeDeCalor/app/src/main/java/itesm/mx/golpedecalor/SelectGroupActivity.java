@@ -203,6 +203,10 @@ public class SelectGroupActivity extends ActionBarActivity {
         Toast.makeText(getApplicationContext(), "Sincronizacion Exitosa", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Clase que sirve para manejar la sincronización con el servidor de
+     * manera asincrónica
+     */
     class RequestTask extends AsyncTask<String, String, String> {
 
         @Override

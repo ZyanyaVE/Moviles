@@ -9,7 +9,7 @@
     Última Modificación: 15 de Marzo del 2015
     Nombre del Archivo: DataBaseHelper.java
     Convención de nombres: "CamelCase"
-    Versión 1.0
+    Versión 6.0
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -34,7 +34,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 /**
- * Created by Marcelo on 22/03/2015.
+ * Clase que sirve para realizar operaciones básicas de la base de datos
+ *  como lo es abrir y cerrar la conexión
  */
 public class DataBaseHelper extends SQLiteOpenHelper {
 

@@ -168,6 +168,10 @@ public class CreateViewGroupActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Método que sirve como handler para el botón de empezar monitoreo
+     * @param v Es la vista del botón
+     */
     public void onClickEmpezarMonitoreo(View v){
         if (existente){
         }
@@ -202,7 +206,11 @@ public class CreateViewGroupActivity extends ActionBarActivity {
         }
     }
 
-    // Se ingresa a la activity de AddUserActivity
+    /**
+     * Método que sirve como handler para agregar una persona al grupo,
+     * manda la a la actividad de agregar usuarios.
+     * @param v Es la vista del botón
+     */
     public void onClickAgregarPersona(View v){
         Intent intent = new Intent(CreateViewGroupActivity.this, AddUserActivity.class);
         intent.putExtra("usuarios", miembrosGpo);
@@ -238,7 +246,12 @@ public class CreateViewGroupActivity extends ActionBarActivity {
         }
     }
 
-    // Accesa al layout de menu menu_context
+    /**
+     * Accesa al layout de menu menu_context
+     * @param menu es el contexto del menu
+     * @param v es la vista
+     * @param menuInfo es la informacion del menu
+     */
     @Override
     public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenu.ContextMenuInfo menuInfo) {
         getMenuInflater().inflate(R.menu.menu_context, menu);

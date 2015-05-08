@@ -30,6 +30,10 @@ package itesm.mx.golpedecalor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * Clase que sirve para crear objetos del tipo usuario, implementa pareceleable para que pueda ser
+ * trasladado de actividad en actividad.
+ */
 public class Usuario implements Parcelable{
     private long id;
     private String nombre;

@@ -30,6 +30,9 @@ package itesm.mx.golpedecalor;
 
 import java.util.ArrayList;
 
+/**
+ * Clase que sirve para crear objetos del tipo grupo
+ */
 public class Grupo {
     private long id;
     private String nombre;
