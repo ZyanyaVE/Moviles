@@ -1,3 +1,30 @@
+/*
+    Golpe de Calor
+
+    Copyright (C) 2015
+    Marcelo Alberto Cantú Quiroga
+    Zyanya Valdés Esquivel
+    Hugo León Garza
+
+    Última Modificación: 28 de Abril del 2015
+    Nombre del Archivo: Monitoreo.java
+    Convención de nombres: "CamelCase"
+    Versión 3.0
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package itesm.mx.golpedecalor;
 
 import android.os.Handler;
@@ -8,8 +35,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Created by Marcelo on 15/04/2015.
+ * Clase helper que sirve para relaizar el monitoreo de los usuarios
  */
+
 public class Monitoreo {
     Grupo grupo;
     MonitoringActivity interfaz;
@@ -20,6 +48,11 @@ public class Monitoreo {
         this.interfaz = interfaz;
     }
 
+    /**
+     * Método utilizado para obtener el valor de temperatura del usuario
+     * @param user Es el usuario al cual se le quiere obtener su temperatura
+     * @return Regresa el valor de la temperatura
+     */
     private float getTemp(Usuario user){
         Random rand = new Random();
         float temp;
@@ -33,6 +66,11 @@ public class Monitoreo {
         return temp;
     }
 
+    /**
+     * Método utilizado para obtener el valor del ritmo cardiaco del usuario
+     * @param user Es el usuario al cual se le quiere obtener su ritmo cardiaco
+     * @return Regresa el valor del ritmo cardiaco
+     */
     private int getRitmoCardiaco(Usuario user) {
         Random rand = new Random();
         int rc;
@@ -44,6 +82,11 @@ public class Monitoreo {
         return rc;
     }
 
+    /**
+     * Método utilizado para obtener el valor de radiación del usuario
+     * @param user Es el usuario al cual se le quiere obtener su radiación
+     * @return Regresa el valor de la radiación
+     */
     private int getRadiacion(Usuario user) {
         Random rand = new Random();
         int rad;
@@ -55,6 +98,11 @@ public class Monitoreo {
         return rad;
     }
 
+    /**
+     * Este método lo que hace es empezar el monitoreo, lo hace creando un timer
+     * el cual corrrerá cada cierto tiempo y obtendrá el valor de los parámetros,
+     * después de esto checará si supera el valor deseado.
+     */
     public void empezarMonitoreo(){
         timer = new Timer();
         final Handler handler = new Handler();
