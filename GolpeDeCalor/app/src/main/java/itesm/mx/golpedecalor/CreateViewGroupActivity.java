@@ -225,7 +225,7 @@ public class CreateViewGroupActivity extends ActionBarActivity {
 
         // Si se elimina se llama a la función de eliminar en DBO
         if (id == R.id.delete){
-            Toast.makeText(getApplicationContext(), "DELETE " + (miembrosGpo.get(info.position)).getId(), Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "DELETE " + (miembrosGpo.get(info.position)).getId(), Toast.LENGTH_LONG).show();
             boolean deleted = dbo.deleteMember((miembrosGpo.get(info.position)).getId());
             nombres.remove(info.position);
             adapter.notifyDataSetChanged();

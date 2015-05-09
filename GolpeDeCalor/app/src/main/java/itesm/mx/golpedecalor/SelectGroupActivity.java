@@ -159,7 +159,7 @@ public class SelectGroupActivity extends ActionBarActivity {
         if (id == R.id.delete){
             //(grupos.get(info.position)).getId()
 
-            Toast.makeText(getApplicationContext(), "DELETE " + nombres.get(info.position), Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "DELETE " + nombres.get(info.position), Toast.LENGTH_LONG).show();
             boolean deleted = dbo.deleteGroup((grupos.get(info.position)).getId());
 
             nombres.remove(info.position);
