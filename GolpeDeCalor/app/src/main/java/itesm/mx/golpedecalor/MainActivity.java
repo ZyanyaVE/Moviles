@@ -36,7 +36,7 @@ public class MainActivity extends ActionBarActivity {
             dbo.open();
         }
         catch (Exception e){
-            System.out.println("lala");
+            System.out.println("Resume main activity");
         }
         super.onResume();
     }
@@ -49,16 +49,20 @@ public class MainActivity extends ActionBarActivity {
 
     // Se revisa la base de datos para saber si existe el usuario ingresado
     public void onClickIngresar(View v){
-        Integer id = Integer.parseInt(idET.getText().toString());
-        Usuario user = dbo.findAccount(id);
-        if (user != null){
-            Intent homeIntent = new Intent (MainActivity.this, SelectGroupActivity.class);
-            homeIntent.putExtra("Usuario", user);
+        String input = idET.getText().toString();
+        if(!input.isEmpty()) {
+            Integer id = Integer.parseInt(input);
+            Usuario user = dbo.findAccount(id);
+            if (user != null) {
+                Intent homeIntent = new Intent(MainActivity.this, SelectGroupActivity.class);
+                homeIntent.putExtra("Usuario", user);
 
-            startActivity(homeIntent);
-        }
-        else{
-            Toast.makeText(getApplicationContext(), "El ID que ingresaste no existe", Toast.LENGTH_SHORT).show();
+                startActivity(homeIntent);
+            } else {
+                Toast.makeText(getApplicationContext(), "El ID que ingresaste no existe", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), "No ingresaste id", Toast.LENGTH_SHORT).show();
         }
     }
 
