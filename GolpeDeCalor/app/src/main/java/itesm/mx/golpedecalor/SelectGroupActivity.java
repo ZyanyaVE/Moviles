@@ -1,6 +1,8 @@
 package itesm.mx.golpedecalor;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -171,8 +173,17 @@ public class SelectGroupActivity extends ActionBarActivity {
     }
 
     public void onClickSincronizar(View v){
-        new RequestTask().execute("http://golpedecalor.comoj.com/dbHandler.php");
-        Toast.makeText(getApplicationContext(), "Sincronizacion Exitosa", Toast.LENGTH_SHORT).show();
+        ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mMobile = connManager .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        if(mWifi.isConnected() || mMobile.isConnected()) {
+            new RequestTask().execute("http://golpedecalor.comoj.com/dbHandler.php");
+            Toast.makeText(getApplicationContext(), "Sincronizacion Exitosa", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "No hay conexión a internet", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     class RequestTask extends AsyncTask<String, String, String> {
