@@ -1,3 +1,31 @@
+/*
+    Golpe de Calor
+
+    Copyright (C) 2015
+    Marcelo Alberto Cantú Quiroga
+    Zyanya Valdés Esquivel
+    Hugo León Garza
+
+    Última Modificación: 20 de Abril del 2015
+    Nombre del Archivo: SelectGroupActivity.java
+    Convención de nombres: "CamelCase"
+    Versión 1.0
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
 package itesm.mx.golpedecalor;
 
 import android.content.Intent;
@@ -161,7 +189,7 @@ public class SelectGroupActivity extends ActionBarActivity {
         if (id == R.id.delete){
             //(grupos.get(info.position)).getId()
 
-            Toast.makeText(getApplicationContext(), "DELETE " + nombres.get(info.position), Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "DELETE " + nombres.get(info.position), Toast.LENGTH_LONG).show();
             boolean deleted = dbo.deleteGroup((grupos.get(info.position)).getId());
 
             nombres.remove(info.position);
@@ -186,6 +214,10 @@ public class SelectGroupActivity extends ActionBarActivity {
 
     }
 
+    /**
+     * Clase que sirve para manejar la sincronización con el servidor de
+     * manera asincrónica
+     */
     class RequestTask extends AsyncTask<String, String, String> {
 
         @Override
