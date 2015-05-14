@@ -161,9 +161,7 @@ public class MonitoringActivity extends ActionBarActivity {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                        switcherVS.showNext();
-                        alerta = false;
-                        notificationManager.cancelAll();
+                        monitoreoHelper.terminarAlerta();
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
@@ -221,13 +219,13 @@ public class MonitoringActivity extends ActionBarActivity {
 
     }
 
-    public void alerta(String nombre, String causa, String parametro){
+    public void alerta(String nombre, String causa, String parametro, Boolean nueva){
         if (!alerta){
             switcherVS.showNext();
             alerta = true;
         }
 
-        mp.start();
+        if (nueva) mp.start();
         nombreTV.setText(nombre);
         if (causa == "Temp"){
             causaTV.setText("Se le presentó una temperatura muy elevada");
@@ -280,5 +278,14 @@ public class MonitoringActivity extends ActionBarActivity {
         monitoreoHelper.terminarMonitoreo();
         Toast.makeText(getApplicationContext(), "Monitoreo terminado", Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    public void terminarAlerta(Boolean ultima, int notId){
+        if (ultima){
+            switcherVS.showNext();
+            alerta = false;
+        }
+
+        notificationManager.cancel(notId);
     }
 }

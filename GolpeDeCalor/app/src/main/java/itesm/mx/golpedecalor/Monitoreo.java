@@ -30,6 +30,7 @@ package itesm.mx.golpedecalor;
 import android.os.Handler;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -43,9 +44,20 @@ public class Monitoreo {
     MonitoringActivity interfaz;
     Timer timer;
 
+    //Mapeo de alertas
+    ArrayList<Usuario> usuariosAlerta;
+    ArrayList<String> valores;
+    ArrayList<String> causas;
+
+
+
     public Monitoreo(Grupo grupo, MonitoringActivity interfaz) {
         this.grupo = grupo;
         this.interfaz = interfaz;
+
+        usuariosAlerta = new ArrayList<>();
+        valores = new ArrayList<>();
+        causas = new ArrayList<>();
     }
 
     /**
@@ -119,16 +131,28 @@ public class Monitoreo {
                         public void run() {
                             interfaz.updateValues(temp, rc, rad, ind);
                             if (temp > 39.5){
-                                interfaz.newNotification("¡Alerta! Temperatura eleveda", "¡Alerta! Trabajador en riesgo", u.getNombre() + " " + u.getApellidos()+ " está en riesgo.", ind);
-                                interfaz.alerta(u.getNombre() + " " + u.getApellidos(), "Temp", String.valueOf(temp));
+                                usuariosAlerta.add(u);
+                                valores.add(String.valueOf(temp));
+                                causas.add("Temp");
+                                interfaz.newNotification("¡Alerta! Temperatura eleveda", "¡Alerta! Trabajador en riesgo", u.getNombre() + " " + u.getApellidos()+ " está en riesgo.", usuariosAlerta.size() - 1);
+                                interfaz.alerta(u.getNombre() + " " + u.getApellidos(), "Temp", String.valueOf(temp), true);
+
                             }
                             if (rc > 115){
-                                interfaz.newNotification("¡Alerta! Ritmo Cardiaco elevado", "¡Alerta! Trabajador en riesgo", u.getNombre() + " " + u.getApellidos()+ " está en riesgo.", ind);
-                                interfaz.alerta(u.getNombre() + " " + u.getApellidos(), "RC", String.valueOf(rc));
+                                usuariosAlerta.add(u);
+                                valores.add(String.valueOf(rc));
+                                causas.add("RC");
+                                interfaz.newNotification("¡Alerta! Ritmo Cardiaco elevado", "¡Alerta! Trabajador en riesgo", u.getNombre() + " " + u.getApellidos()+ " está en riesgo.", usuariosAlerta.size() - 1);
+                                interfaz.alerta(u.getNombre() + " " + u.getApellidos(), "RC", String.valueOf(rc), true);
+
                             }
                             if (rad > 140){
-                                interfaz.newNotification("¡Alerta! Radiación solar elevada", "¡Alerta! Trabajador en riesgo", u.getNombre() + " " + u.getApellidos()+ " está en riesgo.", ind);
-                                interfaz.alerta(u.getNombre() + " " + u.getApellidos(), "Rad", String.valueOf(rad));
+                                usuariosAlerta.add(u);
+                                valores.add(String.valueOf(rad));
+                                causas.add("Rad");
+                                interfaz.newNotification("¡Alerta! Radiación solar elevada", "¡Alerta! Trabajador en riesgo", u.getNombre() + " " + u.getApellidos()+ " está en riesgo.", usuariosAlerta.size() - 1);
+                                interfaz.alerta(u.getNombre() + " " + u.getApellidos(), "Rad", String.valueOf(rad), true);
+
                             }
 
 
@@ -144,6 +168,19 @@ public class Monitoreo {
 
     public void terminarMonitoreo(){
         timer.cancel();
+    }
+
+    public void terminarAlerta(){
+
+        usuariosAlerta.remove(usuariosAlerta.size() - 1);
+        valores.remove(valores.size() - 1);
+        causas.remove(causas.size() - 1);
+        interfaz.terminarAlerta(usuariosAlerta.isEmpty(), usuariosAlerta.size());
+
+        if (!usuariosAlerta.isEmpty()){
+            interfaz.alerta(usuariosAlerta.get(usuariosAlerta.size() - 1).getNombre() + " " + usuariosAlerta.get(usuariosAlerta.size() - 1).getApellidos(), causas.get(causas.size() - 1), valores.get(valores.size() - 1), false);
+        }
+
     }
 
 }
