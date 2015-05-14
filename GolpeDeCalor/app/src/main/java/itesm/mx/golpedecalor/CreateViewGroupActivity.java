@@ -269,6 +269,7 @@ public class CreateViewGroupActivity extends ActionBarActivity {
             //Toast.makeText(getApplicationContext(), "DELETE " + (miembrosGpo.get(info.position)).getId(), Toast.LENGTH_LONG).show();
             boolean deleted = dbo.deleteMember((miembrosGpo.get(info.position)).getId());
             nombres.remove(info.position);
+            miembrosGpo.remove(info.position);
             adapter.notifyDataSetChanged();
 
             return true;
